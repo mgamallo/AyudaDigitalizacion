@@ -19,8 +19,8 @@ import com.sun.pdfview.PDFPage;
 public class PdfToImageWithDimensions {
     public static void main(String[] args) {
         try {
-        String sourceDir = "K:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\ocr.pdf";// PDF file must be placed in DataGet folder
-        String destinationDir = "K:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\";//Converted PDF page saved in this folder
+        String sourceDir = "d:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\ocr.pdf";// PDF file must be placed in DataGet folder
+        String destinationDir = "d:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\";//Converted PDF page saved in this folder
 
         File sourceFile = new File(sourceDir);
         File destinationFile = new File(destinationDir);

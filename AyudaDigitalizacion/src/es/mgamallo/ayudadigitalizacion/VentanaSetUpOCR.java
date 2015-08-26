@@ -1,5 +1,7 @@
 package es.mgamallo.ayudadigitalizacion;
 
+import javax.swing.JLabel;
+
 
 public class VentanaSetUpOCR extends javax.swing.JFrame {
 
@@ -32,7 +34,6 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
         campoServicio = new javax.swing.JTextField();
         labelNombreNormalizado = new javax.swing.JLabel();
         botonAnterior = new javax.swing.JButton();
-        panelImagen = new javax.swing.JPanel();
         botonRegistrar = new javax.swing.JButton();
         labelDocumento1 = new javax.swing.JLabel();
         labelDocumento2 = new javax.swing.JLabel();
@@ -43,7 +44,11 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
         labelFormato = new javax.swing.JLabel();
         comboFormato = new javax.swing.JComboBox();
         labelIdentificaNHC = new javax.swing.JLabel();
+        labelIdentificaCIP = new javax.swing.JLabel();
+        labelIdentificaNSS = new javax.swing.JLabel();
         campoIdentificaNHC = new javax.swing.JTextField();
+        campoIdentificaCIP = new javax.swing.JTextField();
+        campoIdentificaNSS = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,18 +90,8 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
             }
         });
 
-        panelImagen.setBackground(new java.awt.Color(255, 204, 204));
 
-        javax.swing.GroupLayout panelImagenLayout = new javax.swing.GroupLayout(panelImagen);
-        panelImagen.setLayout(panelImagenLayout);
-        panelImagenLayout.setHorizontalGroup(
-            panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelImagenLayout.setVerticalGroup(
-            panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 199, Short.MAX_VALUE)
-        );
+
 
         botonRegistrar.setText("Registrar");
 
@@ -106,7 +101,7 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
 
         labelServicio.setText("Identifica Servicio");
 
-        labelOrientacion.setText("OrientaciÃ³n");
+        labelOrientacion.setText("Orientación");
 
         comboOrientacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vertical", "Horizontal" }));
 
@@ -115,6 +110,8 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
         comboFormato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A4", "A5", "A3" }));
 
         labelIdentificaNHC.setText("Identifica NHC");
+        labelIdentificaCIP.setText("Identifica CIP");
+        labelIdentificaNSS.setText("Identifica NSS");
 
         javax.swing.GroupLayout panelSetupOCRLayout = new javax.swing.GroupLayout(panelSetupOCR);
         panelSetupOCR.setLayout(panelSetupOCRLayout);
@@ -132,14 +129,18 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
                             .addComponent(labelOrientacion)
                             .addComponent(labelFormato))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelSetupOCRLayout.createSequentialGroup()
-                        .addComponent(labelIdentificaNHC)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelSetupOCRLayout.createSequentialGroup())
+                    	.addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                        .addComponent(labelIdentificaNHC)
+	                        .addComponent(labelIdentificaCIP)
+	                        .addComponent(labelIdentificaNSS)
+	                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSetupOCRLayout.createSequentialGroup()
                         .addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botonRegistrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelImagen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campoIdentificaNHC, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoIdentificaCIP, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoIdentificaNSS, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboFormato, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(comboOrientacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campoServicio, javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +195,13 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoIdentificaNHC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(labelIdentificaCIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(18, 18, 18)
+                .addComponent(campoIdentificaCIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelIdentificaNSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(18, 18, 18)                
+                .addComponent(campoIdentificaNSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -282,6 +289,9 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
     private javax.swing.JTextField campoDocumento1;
     private javax.swing.JTextField campoDocumento2;
     private javax.swing.JTextField campoIdentificaNHC;
+    private javax.swing.JTextField campoIdentificaCIP;
+    private javax.swing.JTextField campoIdentificaNSS;
+    
     private javax.swing.JTextField campoServicio;
     private javax.swing.JComboBox comboFormato;
     private javax.swing.JComboBox comboNombreNormalizado;
@@ -295,10 +305,11 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
     private javax.swing.JLabel labelDocumento2;
     private javax.swing.JLabel labelFormato;
     private javax.swing.JLabel labelIdentificaNHC;
+    private JLabel labelIdentificaCIP;
+    private JLabel labelIdentificaNSS;
     private javax.swing.JLabel labelNombreNormalizado;
     private javax.swing.JLabel labelOrientacion;
     private javax.swing.JLabel labelServicio;
-    private javax.swing.JPanel panelImagen;
     private javax.swing.JPanel panelSetupOCR;
     private javax.swing.JScrollPane scrollServicios;
     // End of variables declaration//GEN-END:variables

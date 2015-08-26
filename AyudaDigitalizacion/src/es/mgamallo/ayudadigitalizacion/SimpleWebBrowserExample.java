@@ -37,7 +37,10 @@ public class SimpleWebBrowserExample {
     JPanel webBrowserPanel = new JPanel(new BorderLayout());
     webBrowserPanel.setBorder(BorderFactory.createTitledBorder("Native Web Browser component"));
     final JWebBrowser webBrowser = new JWebBrowser();
-    webBrowser.navigate("http://ianuschop.sergas.local/ianus_chp_pro/jsps/login.jsp");
+    // webBrowser.navigate("http://ianuschop.sergas.local/ianus_chp_pro/jsps/login.jsp");
+   
+    webBrowser.navigate("http://www.google.es");
+    
     webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
     contentPane.add(webBrowserPanel, BorderLayout.CENTER);
     // Create an additional bar allowing to show/hide the menu bar of the web browser.
@@ -63,7 +66,8 @@ public class SimpleWebBrowserExample {
     			  "");
     	  
     	  
-    	  webBrowser.executeJavascript(configurationTextArea.getText());
+    	 // webBrowser.executeJavascript(configurationTextArea.getText());
+    	  webBrowser.navigate("javascript:alert('hola')");
       }
     });
     buttonPanel.add(menuBarCheckBox);

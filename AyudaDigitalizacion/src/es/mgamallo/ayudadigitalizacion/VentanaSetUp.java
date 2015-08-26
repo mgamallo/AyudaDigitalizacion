@@ -1,15 +1,33 @@
 package es.mgamallo.ayudadigitalizacion;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.ProxySelector;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import chrriis.dj.nativeswing.swtimpl.NativeComponent;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,7 +45,69 @@ public class VentanaSetUp extends javax.swing.JFrame {
     /**
      * Creates new form VentanaSetUp
      */
-    public VentanaSetUp() {
+	
+	Modelo modeloActual = new Modelo();
+	
+	CargaListaPdfs pdfs;
+	
+	public String proximoIndice = "";
+	public int filaDondeEscribir;
+
+	private boolean imagenExtraida = false;
+	
+	private JButton botonAnterior;
+
+	private JButton botonRegistrar;
+
+	private JLabel labelDocumento1;
+
+	private JLabel labelDocumento2;
+
+	private JLabel labelServicio;
+
+	private JSeparator jSeparator1;
+
+	private JLabel labelOrientacion;
+
+	private JComboBox comboOrientacion;
+
+	private JLabel labelFormato;
+
+	private JComboBox comboFormato;
+	
+	private JLabel labelUrgencias;
+
+	private JComboBox comboUrgencias;
+
+	private JLabel labelIdentificaNHC;
+
+	private JLabel labelIdentificaCIP;
+
+	private JLabel labelIdentificaNSS;
+
+	private JTextField campoIdentificaNHC;
+
+	private JTextField campoIdentificaNSS;
+
+	private JTextField campoIdentificaCIP;
+
+	private JLabel labelDocYservicio;
+
+	private JTextField campoDocYservicio;
+
+	private JTextField campoDocumento1;
+
+	private JTextField campoDocumento2;
+
+	private JTextField campoServicio;
+	
+	private String rutasPdfs[];
+	
+	private int indiceArchivoSelecc = 0;
+	
+    public VentanaSetUp(String proximoIndice, int filaDondeEscribir) {
+    	this.proximoIndice = proximoIndice;
+    	this.filaDondeEscribir = filaDondeEscribir;
         initComponents();
     }
 
@@ -43,26 +123,132 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jPanel0 = new javax.swing.JPanel();
         jSplitPane0 = new javax.swing.JSplitPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        listaPdfs = new javax.swing.JList();
         jSplitPane1 = new javax.swing.JSplitPane();
+        
         
         
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         
+        panelSetupAyuda = new javax.swing.JPanel();
+        panelSetupOCR = new javax.swing.JPanel();
+        
         webBrowser = new JWebBrowser();
-        webBrowser.navigate("http://www.google.es");
+       //  webBrowser.navigate("http://www.google.es");
+       // webBrowser.navigate("F:/Desarrollo/git/AyudaDigitalizacion/AyudaDigitalizacion/ocr.pdf");
+        webBrowser.setVisible(false);
+        
         webBrowser.setBarsVisible(false);
         webBrowser.setMenuBarVisible(false);
         
+        //  Variables del panelOCR *********************************************
+ 
+        
+        botonAnterior = new javax.swing.JButton();
+        botonRegistrar = new javax.swing.JButton();
+        labelDocumento1 = new javax.swing.JLabel();
+        labelDocumento2 = new javax.swing.JLabel();
+        labelServicio = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        labelOrientacion = new javax.swing.JLabel();
+        comboOrientacion = new javax.swing.JComboBox();
+        labelFormato = new javax.swing.JLabel();
+        comboFormato = new javax.swing.JComboBox();
+        labelUrgencias = new javax.swing.JLabel();
+        comboUrgencias = new javax.swing.JComboBox();
+        labelIdentificaNHC = new javax.swing.JLabel();
+        labelIdentificaCIP = new javax.swing.JLabel();
+        labelIdentificaNSS = new javax.swing.JLabel();
+        campoIdentificaNHC = new javax.swing.JTextField();
+        campoIdentificaCIP = new javax.swing.JTextField();
+        campoIdentificaNSS = new javax.swing.JTextField();
+        
+        labelDocYservicio = new javax.swing.JLabel();
+        
+        campoDocYservicio = new javax.swing.JTextField();
+        campoDocumento1 = new javax.swing.JTextField();
+        campoDocumento2 = new javax.swing.JTextField();
+        campoServicio = new javax.swing.JTextField();
+        
+        labelDocYservicio.setText("Identifica Documento y Servicio");
+        labelDocumento1.setText("Identifica Documento 1");
+
+        labelDocumento2.setText("Identifica Documento 2");
+
+        labelServicio.setText("Identifica Servicio");
+
+        labelOrientacion.setText("Orientación");
+
+        comboOrientacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vertical", "Horizontal" }));
+        comboOrientacion.setSelectedIndex(0);
+        
+        labelFormato.setText("Formato papel");
+
+        comboFormato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A4", "A5", "A3" }));
+        comboFormato.setSelectedIndex(0);
+        
+        labelUrgencias.setText("¿Pdf de documentación o de urgencias?");
+        
+        comboUrgencias.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Documentación", "Urgencias" }));
+        comboUrgencias.setSelectedIndex(0);
+        
+        labelIdentificaNHC.setText("Identifica NHC");
+        labelIdentificaCIP.setText("Identifica CIP");
+        labelIdentificaNSS.setText("Identifica NSS");
+        
+        botonRegistrar.setText("Registrar");
+        botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarActionPerformed(evt);
+            }
+        });
+        
+        botonAnterior.setText("Anterior");
+        botonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAnteriorActionPerformed(evt);
+            }
+        });
+        
+        
+        //*********************************************************************
+        
+        //*************** Etiqueta imagen
+        
+        
+        
+       // etiquetaImagen = new JLabel();
+        
+        /*
+        ImageIcon image = new ImageIcon("ocr_1.jpg");
+        
+        int scale = 2;
+        
+        int width = image.getIconWidth();
+        int height = image.getIconHeight();
+                
+        BufferedImage buffer = new BufferedImage((int)width/scale, (int)height/scale, BufferedImage.SCALE_SMOOTH);
+        
+        Graphics2D graphics = buffer.createGraphics();
+       // graphics.scale(scale, scale);
+        
+        image.paintIcon(null, graphics, 0, 0);
+        graphics.dispose();
+        
+        etiquetaImagen = new JLabel(new ImageIcon(buffer));
+        
+        //etiquetaImagen.setIcon(new ImageIcon("ocr_1.jpg"));
+        
+        */
+        
         etiquetaImagen = new JLabel();
-        
-        
-        
+       
         scrollServicios = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        panelSetupAyuda = new javax.swing.JPanel();
-        comboNombresNormalizado = new javax.swing.JComboBox();
+        listaServicios = new javax.swing.JList();
+  
+        comboNombresNormalizadoPdf = new javax.swing.JComboBox();
+        comboNombresNormalizadoOcr = new javax.swing.JComboBox();
         labelMetadatos = new javax.swing.JLabel();
         campoMetadato1 = new javax.swing.JTextField();
         campoMetadato2 = new javax.swing.JTextField();
@@ -85,22 +271,26 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1100, 900));
+        // setPreferredSize(new java.awt.Dimension(1100, 900));
 
-        jPanel0.setPreferredSize(new java.awt.Dimension(1100, 850));
+        // jPanel0.setPreferredSize(new java.awt.Dimension(1100, 850));
 
         jSplitPane0.setDividerSize(10);
         jSplitPane0.setOneTouchExpandable(true);
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(jList2);
+
+        listaPdfs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaPdfs.addMouseListener(new MouseAdapter() {
+        	public void mouseClicked(MouseEvent ev){
+        		pulsarListaPdfs(ev);
+        	}
+		});
+        
+        jScrollPane3.setViewportView(listaPdfs);
 
         jSplitPane0.setLeftComponent(jScrollPane3);
 
@@ -124,17 +314,20 @@ public class VentanaSetUp extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(400, 800));
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollServicios.setViewportView(jList1);
+        listaServicios.setModel(Inicio.listaModelServicios);
+        scrollServicios.setViewportView(listaServicios);
 
         panelSetupAyuda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro Ayuda General", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
 
-        comboNombresNormalizado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboNombresNormalizado.addActionListener(new java.awt.event.ActionListener() {
+        comboNombresNormalizadoPdf.setModel(Inicio.comboModelNombres);
+        comboNombresNormalizadoPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboNombresNormalizadoActionPerformed(evt);
+            }
+        });
+        
+        comboNombresNormalizadoOcr.setModel(Inicio.comboModelNombres);
+        comboNombresNormalizadoOcr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboNombresNormalizadoActionPerformed(evt);
             }
@@ -150,13 +343,13 @@ public class VentanaSetUp extends javax.swing.JFrame {
 
         labelApariencia.setText("Apariencia");
 
-        comboApariencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno", "Cuadrícula", "Cuadro", "Dibujo", "Eco", "Esquema", "Foto", "Gráfica", " ", " ", " " }));
+        comboApariencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno", "Cuadrícula", "Cuadro", "Dibujo", "Eco", "Esquema", "Foto", "Gráfico"}));
 
         labelNombreNormalizado.setText("Nombre Normalizado");
 
         labelColor.setText("Color");
 
-        comboColor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno", "Amarillo", "Azul", "Marrón", "Naranja", "Rojo", "Rosa", "Verde", "Violeta", " " }));
+        comboColor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno", "Amarillo", "Azul", "Marrón", "Naranja", "Rojo", "Rosa", "Varios","Verde", "Violeta"}));
 
         botonSiguiente.setText("Siguiente");
         botonSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -165,9 +358,9 @@ public class VentanaSetUp extends javax.swing.JFrame {
             }
         });
 
-        etiquetaImagen.setText("Imagen");
+        // etiquetaImagen.setText("Imagen");
         
-        panelImagenPdf.setBackground(new java.awt.Color(255, 204, 204));
+        // panelImagenPdf.setBackground(new java.awt.Color(255, 204, 204));
 
         javax.swing.GroupLayout panelImagenPdfLayout = new javax.swing.GroupLayout(panelImagenPdf);
         panelImagenPdf.setLayout(panelImagenPdfLayout);
@@ -186,7 +379,9 @@ public class VentanaSetUp extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				capturaImagen();
+				System.out.println("hola");
+				
+				capturaImagen(rutasPdfs[indiceArchivoSelecc],1);
 			}
 		});
 
@@ -198,7 +393,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelSetupAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelSetupAyudaLayout.createSequentialGroup()
-                        .addComponent(botonImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonSiguiente))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -208,7 +403,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
                     .addComponent(campoMetadato2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoMetadato1)
                     .addComponent(comboApariencia, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboNombresNormalizado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboNombresNormalizadoPdf, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comboColor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelImagenPdf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSetupAyudaLayout.createSequentialGroup()
@@ -221,13 +416,14 @@ public class VentanaSetUp extends javax.swing.JFrame {
                         .addGap(0, 173, Short.MAX_VALUE)))
                 .addGap(23, 23, 23))
         );
+        
         panelSetupAyudaLayout.setVerticalGroup(
             panelSetupAyudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSetupAyudaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(labelNombreNormalizado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboNombresNormalizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboNombresNormalizadoPdf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(labelMetadatos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,7 +464,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(scrollServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSetupAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelSetupAyuda, 300, javax.swing.GroupLayout.DEFAULT_SIZE, 300))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,6 +475,8 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jSplitPane1.setRightComponent(jPanel2);
 
         jSplitPane0.setRightComponent(jSplitPane1);
+        
+        jSplitPane0.setDividerLocation(150);
 
         javax.swing.GroupLayout jPanel0Layout = new javax.swing.GroupLayout(jPanel0);
         jPanel0.setLayout(jPanel0Layout);
@@ -295,10 +493,146 @@ public class VentanaSetUp extends javax.swing.JFrame {
                 .addComponent(jSplitPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 19, Short.MAX_VALUE))
         );
+        
+        
+        ///////////////////////   Panel ocr
+        
+        panelSetupOCR.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro OCR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
+        
+        javax.swing.GroupLayout panelSetupOCRLayout = new javax.swing.GroupLayout(panelSetupOCR);
+        panelSetupOCR.setLayout(panelSetupOCRLayout);
+        panelSetupOCRLayout.setHorizontalGroup(
+            panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSetupOCRLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSetupOCRLayout.createSequentialGroup()
+                        .addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDocYservicio)
+                            .addComponent(labelDocumento1)
+                            .addComponent(labelDocumento2)
+                            .addComponent(labelServicio)
+                            .addComponent(labelOrientacion)
+                            .addComponent(labelFormato)
+                            .addComponent(labelUrgencias))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelSetupOCRLayout.createSequentialGroup())
+                    	.addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                        .addComponent(labelIdentificaNHC)
+	                        .addComponent(labelIdentificaCIP)
+	                        .addComponent(labelIdentificaNSS)
+	                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSetupOCRLayout.createSequentialGroup()
+                        .addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botonRegistrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoIdentificaNHC, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoIdentificaCIP, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoIdentificaNSS, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboFormato, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboOrientacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboUrgencias, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoServicio, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoDocumento2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoDocumento1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoDocYservicio)
+                            .addComponent(comboNombresNormalizadoOcr, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSetupOCRLayout.createSequentialGroup()
+                                .addComponent(labelNombreNormalizado)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSetupOCRLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botonAnterior)))
+                        .addGap(23, 23, 23))))
+        );
+        panelSetupOCRLayout.setVerticalGroup(
+            panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSetupOCRLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(labelNombreNormalizado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboNombresNormalizadoOcr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelDocYservicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoDocYservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(labelDocumento1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoDocumento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(labelDocumento2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoDocumento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelServicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelOrientacion)
+                .addGap(1, 1, 1)
+                .addComponent(comboOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelFormato)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboFormato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelUrgencias)
+                .addGap(1, 1, 1)
+                .addComponent(comboUrgencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(18, 18, 18)
+                .addComponent(labelIdentificaNHC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoIdentificaNHC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+               .addComponent(labelIdentificaCIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(18, 18, 18)
+                .addComponent(campoIdentificaCIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelIdentificaNSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(18, 18, 18)                
+                .addComponent(campoIdentificaNSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         jMenu1.setText("Archivo");
 
         jMenuItem1.setText("Abrir");
+        jMenuItem1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				pdfs = new CargaListaPdfs();
+				
+				if(pdfs.nombrePdfs.length > 0){
+					DefaultListModel listaModeloPdfs = new DefaultListModel();
+					
+					rutasPdfs = new String[pdfs.nombrePdfs.length];
+					
+					for(int i=0;i<pdfs.nombrePdfs.length;i++){
+						listaModeloPdfs.addElement(pdfs.nombrePdfs[i]);
+						rutasPdfs[i] = pdfs.rutaPdfs[i];
+					}
+					
+					listaPdfs.setModel(listaModeloPdfs);
+					indiceArchivoSelecc = 0;
+					listaPdfs.setSelectedIndex(indiceArchivoSelecc);
+					webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+					
+					webBrowser.setVisible(true);
+				}
+
+			}
+		});
+        
+        
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -324,16 +658,289 @@ public class VentanaSetUp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 786, Short.MAX_VALUE))
+                .addGap(0, 850, Short.MAX_VALUE))
         );
+        
+       setSize(1200,900);
+       setResizable(false);
 
-        pack();
+       // pack();
     }// </editor-fold>                        
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
+    	
+    	if(listaServicios.getSelectedIndices().length == 0){
+    		JOptionPane.showMessageDialog(null, "Selecciona algún servicio, o todos los servicios");
+    	}
+    	else if(!imagenExtraida){
+    		JOptionPane.showMessageDialog(null, "Extrae primero la imagen.");
+    	}
+    	else{
+	    	modeloActual.identificador = proximoIndice;
+	    	modeloActual.nombreNormalizado = comboNombresNormalizadoPdf.getSelectedItem().toString();
+	    	
+	    	ArrayList servicios = new ArrayList();
+	    	
+	    	for(int i=0;i<listaServicios.getSelectedIndices().length;i++){
+	    		servicios.add(listaServicios.getSelectedValues()[i].toString());
+	    	}
+	    	
+	    	modeloActual.pdf.servicios = servicios;
+	    	
+	    	modeloActual.pdf.metadatos[0] = campoMetadato1.getText();
+	    	modeloActual.pdf.metadatos[1] = campoMetadato2.getText();   	
+	    	modeloActual.pdf.metadatos[2] = campoMetadato3.getText();
+	    	modeloActual.pdf.metadatos[3] = campoMetadato4.getText();
+	    	modeloActual.pdf.metadatos[4] = campoMetadato5.getText();
+	    	
+	    	modeloActual.pdf.observaciones = areaTextoObservaciones.getText();
+	    	modeloActual.pdf.fisica.apariencia = comboApariencia.getSelectedItem().toString();
+	    	modeloActual.pdf.fisica.color = comboColor.getSelectedItem().toString();
+	    	
+	    	System.out.println(modeloActual.nombreNormalizado);
+	    	for(int i=0;i<modeloActual.pdf.servicios.size();i++){
+	    		System.out.println("   " + modeloActual.pdf.servicios.get(i));
+	    	}
+	    	
+	    	for(int i=0;i<modeloActual.pdf.metadatos.length;i++){
+	    		System.out.println(modeloActual.pdf.metadatos[i]);
+	    	}
+	    	
+	    	System.out.println(modeloActual.pdf.observaciones);
+	    	System.out.println(modeloActual.pdf.fisica.apariencia);
+	    	System.out.println(modeloActual.pdf.fisica.color);
+	
+	     	
+	    	jPanel2.removeAll();
+	    	
+	    	
+	        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+	        jPanel2.setLayout(jPanel2Layout);
+	        jPanel2Layout.setHorizontalGroup(
+	            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(jPanel2Layout.createSequentialGroup()
+	            	.addComponent(scrollServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                .addComponent(panelSetupOCR, 300, javax.swing.GroupLayout.DEFAULT_SIZE, 300))
+	        );
+	        jPanel2Layout.setVerticalGroup(
+	            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addComponent(scrollServicios)
+	            .addComponent(panelSetupOCR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        );
+    	}
+    	
+      //  comboNombresNormalizado.
+ 
+    	
     }                                              
 
+    private void botonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnteriorActionPerformed
+        // TODO add your handling code here:
+    	
+    	jPanel2.removeAll();
+    	
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(scrollServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSetupAyuda, 300, javax.swing.GroupLayout.DEFAULT_SIZE, 300))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollServicios)
+            .addComponent(panelSetupAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+    	
+    	
+    }//GEN-LAST:event_botonAnteriorActionPerformed
+    
+    private void pulsarListaPdfs(MouseEvent ev){
+       	if(ev.getButton() == 1){
+    		System.out.println("Boton izquierdo");
+    		int i= JOptionPane.showConfirmDialog(null, "Se van a resetear los campos. ¿Desea continuar?");
+    		if(i == JOptionPane.OK_OPTION){
+        		indiceArchivoSelecc = listaPdfs.getSelectedIndex();
+        		
+        		reseteaCampos();
+        		
+        		System.out.println(rutasPdfs[indiceArchivoSelecc]);
+        		webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+        		imagenExtraida = false;
+    		}
+    		else{
+    			listaPdfs.setSelectedIndex(indiceArchivoSelecc);
+    		}
+    		
+    		    		
+    	}else if(ev.getButton() == 2){
+    		System.out.println("Boton central");
+    	}
+    	else{
+    		System.out.println("Boton derecho");
+    	}
+    }
+    
+    private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnteriorActionPerformed
+        // TODO add your handling code here:
+    	
+    	modeloActual.nombreNormalizado = comboNombresNormalizadoOcr.getSelectedItem().toString();
+    	
+    	ArrayList servicios = new ArrayList();
+    	
+    	for(int i=0;i<listaServicios.getSelectedIndices().length;i++){
+    		servicios.add(listaServicios.getSelectedValues()[i].toString());
+    	}
+    	
+    	modeloActual.pdf.servicios = servicios;
+    	
+    	modeloActual.ocr.metadatos[0] = campoDocYservicio.getText();
+    	modeloActual.ocr.metadatos[1] = campoDocumento1.getText();   	
+    	modeloActual.ocr.metadatos[2] = campoDocumento2.getText();
+    	modeloActual.ocr.metadatos[3] = campoServicio.getText();
+    	
+    	modeloActual.ocr.identificaNhc = campoIdentificaNHC.getText();
+    	modeloActual.ocr.identificaCIP = campoIdentificaCIP.getText();
+    	modeloActual.ocr.identificaNSS = campoIdentificaNSS.getText();
+    	
+    	modeloActual.pdf.fisica.orientacion = comboOrientacion.getSelectedItem().toString(); 
+    	
+    	modeloActual.pdf.fisica.formato = comboFormato.getSelectedItem().toString();
+    	modeloActual.ocr.urgOdocumentacion = comboUrgencias.getSelectedItem().toString();
+
+    	
+    	for(int i=0;i<modeloActual.pdf.servicios.size();i++){
+    		System.out.println("   " + modeloActual.pdf.servicios.get(i));
+    	}
+    	
+    	for(int i=0;i<modeloActual.ocr.metadatos.length;i++){
+    		System.out.println(modeloActual.pdf.metadatos[i]);
+    	}
+    	
+    	System.out.println(modeloActual.ocr.identificaNhc);
+    	System.out.println(modeloActual.pdf.fisica.orientacion);
+    	System.out.println(modeloActual.pdf.fisica.formato);
+
+     	
+    	jPanel2.removeAll();
+    	
+    	EscribeExcel escribe = new EscribeExcel();
+    	boolean exito = escribe.escribir("Ayuda documentos.xls", modeloActual, filaDondeEscribir);
+    	
+    	if(exito){
+        	reseteaCampos();
+        	JOptionPane.showMessageDialog(null, "Modelo registrado");
+        	if(!mueveOeliminaImagen(true)){
+        		JOptionPane.showMessageDialog(null, "No se pudo mover la imagen temporal");
+        	}
+        	imagenExtraida = false;
+    	}
+
+  //************************************************************************  	    	
+		
+    	listaPdfs.setSelectedIndex(++indiceArchivoSelecc);
+    	webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+    	
+    	/*
+    	DefaultListModel listaModeloPdfs = new DefaultListModel();
+		
+		ArrayList arrayAux = new ArrayList();
+		
+		for(int i=0;i<pdfs.nombrePdfs.length;i++){
+			if(i != indiceArchivoSelecc){
+				arrayAux.add(pdfs.nombrePdfs[i]);
+			}
+		}
+		
+		Object arrayAux2[] = arrayAux.toArray();
+		
+		String arrayAux3[] = new String[arrayAux2.length];
+		
+		pdfs.nombrePdfs = arrayAux3;
+		
+		rutasPdfs = new String[pdfs.nombrePdfs.length];
+		
+		for(int i=0;i<pdfs.nombrePdfs.length;i++){
+			listaModeloPdfs.addElement(pdfs.nombrePdfs[i]);
+			rutasPdfs[i] = pdfs.rutaPdfs[i];
+		}
+		
+		listaPdfs.setModel(listaModeloPdfs);
+		*/
+    	
+		//**************************************************************************************
+    	
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(scrollServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSetupAyuda, 300, javax.swing.GroupLayout.DEFAULT_SIZE, 300))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollServicios)
+            .addComponent(panelSetupAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+    	
+        
+    	
+    }//GEN-LAST:event_botonAnteriorActionPerformed
+    
+    
+    private void reseteaCampos(){
+    	
+    	comboOrientacion.setSelectedIndex(0);
+    	comboFormato.setSelectedIndex(0);
+    	comboUrgencias.setSelectedIndex(0);
+    	comboApariencia.setSelectedIndex(0);
+    	comboColor.setSelectedIndex(0);
+    	comboNombresNormalizadoPdf.setSelectedIndex(0);
+    	comboNombresNormalizadoOcr.setSelectedIndex(0);
+    	areaTextoObservaciones.setText("");
+    	
+    	campoIdentificaNHC.setText("");
+    	campoIdentificaCIP.setText("");
+    	campoIdentificaNSS.setText("");
+    	
+    	campoDocYservicio.setText("");
+    	campoDocumento1.setText("");
+    	campoDocumento2.setText("");
+    	campoServicio.setText("");
+    	
+    	campoMetadato1.setText("");
+    	campoMetadato2.setText("");
+    	campoMetadato3.setText("");
+    	campoMetadato4.setText("");
+    	campoMetadato5.setText("");
+    	
+    	listaServicios.clearSelection();
+    	
+    	etiquetaImagen.setIcon(null);
+    	
+    }
+    
+    private boolean mueveOeliminaImagen(boolean mover){
+    	
+    	if(mover){
+        	File imagenTemporal = new File(Inicio.rutaImagenesTemp + modeloActual.identificador + ".jpg");
+        	File imagenDefinitiva = new File(Inicio.rutaImagenes + modeloActual.identificador + ".jpg");
+        	
+        	boolean exito = imagenTemporal.renameTo(imagenDefinitiva);
+        	return exito;
+    	}
+    	else{
+           	File imagenTemporal = new File(Inicio.rutaImagenesTemp + modeloActual.identificador + ".jpg");
+           	return imagenTemporal.delete();
+    	}
+    }
+    
     private void comboNombresNormalizadoActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
     }                                                       
@@ -343,26 +950,21 @@ public class VentanaSetUp extends javax.swing.JFrame {
      */
     
     public void setPdf(){
-    	webBrowser.navigate("K:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\arreglar.pdf");
+    	webBrowser.navigate("d:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\ocr.pdf");
     }
     
-    private void capturaImagen(){
+    private void capturaImagen(String ruta, int indice){
     	
-    	NativeComponent nativo = webBrowser.getNativeComponent();
-    	Dimension originalSize = nativo.getSize();
+    	PdfToImage image = new PdfToImage(ruta,proximoIndice);
     	
-    	Dimension imageSize = new Dimension();
-    	imageSize.width = 50;
-    	imageSize.height = 50;
+        ImageIcon fot = new ImageIcon(Inicio.rutaImagenesTemp + proximoIndice + ".jpg");
+        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(150, 200, Image.SCALE_SMOOTH));
+        
+        etiquetaImagen.setIcon(icono);
+        imagenExtraida = true;
+        this.repaint();
     	
-    	//nativo.setSize(imageSize);
     	
-    	BufferedImage imagen = new BufferedImage(imageSize.width, imageSize.height, BufferedImage.TYPE_INT_RGB);
-    	nativo.paintComponent(imagen);
-    	
-    	ImageIcon imageIcon = new ImageIcon(imagen);
-    	imageIcon = new ImageIcon(imagen.getScaledInstance(50, 50, BufferedImage.SCALE_SMOOTH));
-    	etiquetaImagen = new JLabel(imageIcon);
     }
     
     /**
@@ -395,7 +997,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaSetUp().setVisible(true);
+               // new VentanaSetUp().setVisible(true);
             }
         });
     }
@@ -411,9 +1013,10 @@ public class VentanaSetUp extends javax.swing.JFrame {
     private javax.swing.JTextField campoMetadato5;
     private javax.swing.JComboBox comboApariencia;
     private javax.swing.JComboBox comboColor;
-    private javax.swing.JComboBox comboNombresNormalizado;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
+    private javax.swing.JComboBox comboNombresNormalizadoPdf;
+    private javax.swing.JComboBox comboNombresNormalizadoOcr;    
+    private javax.swing.JList listaServicios;
+    private javax.swing.JList listaPdfs;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -421,7 +1024,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel0;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane0;
@@ -433,6 +1036,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
     private javax.swing.JLabel labelObservaciones;
     private javax.swing.JPanel panelImagenPdf;
     private javax.swing.JPanel panelSetupAyuda;
+    private javax.swing.JPanel panelSetupOCR;
     private javax.swing.JScrollPane scrollServicios;
     public JWebBrowser webBrowser;
     private JLabel etiquetaImagen;

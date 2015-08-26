@@ -3,6 +3,8 @@ package es.mgamallo.ayudadigitalizacion;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -13,16 +15,53 @@ public class Inicio {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	
+	static final String rutaImagenes = "Perseo/ImagenesAyuda/";
+	static final String rutaImagenesTemp = "Perseo/ImagenesAyuda/temp/";
+	
+	static final String RUTA ="j:/digitalización/00 documentacion/02 Revisado/00 Documentos a registrar"; 
+	static final String RUTAB ="H:/DIGITALIZACIÓN/00 DOCUMENTACION/02 Revisado/00 Documentos a registrar";
+	
+	static LeerExcel leerExcel;
+	
+	static DefaultListModel listaModelNombresComunes = new DefaultListModel();
+	static DefaultListModel listaModelHabituales1 = new DefaultListModel();
+	static DefaultListModel listaModelHabituales2 = new DefaultListModel();
+	static DefaultListModel listaModelNombresServicio = new DefaultListModel();
+	static DefaultListModel listaModelTodosLosNombres = new DefaultListModel();
+	static DefaultComboBoxModel comboModelNombres = new DefaultComboBoxModel();
+	static DefaultListModel listaModelServicios = new DefaultListModel();
+	// static DefaultComboBoxModel listaModelServicios = new DefaultComboBoxModel();
+	
+	String[][] tablaDocumentos;
+	String[] listaServicios;
+	String[] listaNombresDocumentos;
+	String[][] tablaHabituales;
+	
+	public String proximoIndice = "";
+	public int filaDondeEscribir = 1;
+	
+	
+	public Inicio(){
 		NativeInterface.open();
 		
 		
 		SwingUtilities.invokeLater(new Runnable() {   
 		      public void run() {   
-		    	VentanaSetUp ayuda1 = new VentanaSetUp();  
-		    	ayuda1.setPdf();
+
+		    	
+		    	leerExcel = new LeerExcel();
+		    	leerExcel.leer("DocumentosPerseo.xls");
+		    	leerExcel.leerAyuda("Ayuda Documentos.xls");
+		    	
+		    	proximoIndice = leerExcel.proximoIndice;
+		    	filaDondeEscribir = leerExcel.ultimaFila;
+		    	
+		    	setDefaultsModels();
+	    	
+		    	
+		    	VentanaSetUp ayuda1 = new VentanaSetUp(proximoIndice, filaDondeEscribir);  
+		    	// ayuda1.setPdf();
 		  		ayuda1.setVisible(true);
 		      }   
 		    });   
@@ -30,6 +69,48 @@ public class Inicio {
 		
 
 		NativeInterface.runEventPump();
+	}
+	
+	private void setDefaultsModels() {
+
+		listaServicios = leerExcel.getServicios();
+		listaNombresDocumentos = leerExcel.getNombres();
+		tablaHabituales = leerExcel.getHabituales();
+		tablaDocumentos = leerExcel.getTabla();
+
+		listaModelTodosLosNombres.removeAllElements();
+		listaModelNombresComunes.removeAllElements();
+		listaModelHabituales1.removeAllElements();
+		listaModelHabituales2.removeAllElements();
+		listaModelServicios.removeAllElements();
+		comboModelNombres.removeAllElements();
+		
+		// DefaultListModel de todos los nombres
+		for (int i = 0; i < listaNombresDocumentos.length; i++) {
+			listaModelTodosLosNombres.addElement(listaNombresDocumentos[i]);
+			comboModelNombres.addElement(listaNombresDocumentos[i]);
+			if (tablaHabituales[i][0].toLowerCase().equals("s")) {
+				listaModelNombresComunes.addElement(listaNombresDocumentos[i]);
+			} else if (tablaHabituales[i][1].toLowerCase().equals("s")) {
+				listaModelHabituales1.addElement(listaNombresDocumentos[i]);
+			} else if (tablaHabituales[i][2].toLowerCase().equals("s")) {
+				listaModelHabituales2.addElement(listaNombresDocumentos[i]);
+			}
+		}
+
+		for (int i = 0; i < listaServicios.length; i++) {
+			listaModelServicios.addElement(listaServicios[i]);
+		}
+		listaModelServicios.addElement("Todos");
+
+	}
+
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			Inicio inicio = new Inicio();
+			
 	}
 
 }
