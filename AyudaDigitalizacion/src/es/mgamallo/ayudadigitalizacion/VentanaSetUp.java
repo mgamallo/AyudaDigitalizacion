@@ -680,7 +680,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	    	modeloActual.identificador = proximoIndice;
 	    	modeloActual.nombreNormalizado = comboNombresNormalizadoPdf.getSelectedItem().toString();
 	    	
-	    	ArrayList servicios = new ArrayList();
+	    	ArrayList<String> servicios = new ArrayList<String>();
 	    	
 	    	for(int i=0;i<listaServicios.getSelectedIndices().length;i++){
 	    		servicios.add(listaServicios.getSelectedValues()[i].toString());
@@ -828,12 +828,21 @@ public class VentanaSetUp extends javax.swing.JFrame {
      	
     	jPanel2.removeAll();
     	
+    	System.out.println("Fila donde escribir... " + filaDondeEscribir);
+    	
     	EscribeExcel escribe = new EscribeExcel();
-    	boolean exito = escribe.escribir("Ayuda documentos.xls", modeloActual, filaDondeEscribir);
+    	boolean exito = escribe.escribir(Inicio.HERMES_XLS, modeloActual, filaDondeEscribir);
     	
     	if(exito){
         	reseteaCampos();
         	JOptionPane.showMessageDialog(null, "Modelo registrado");
+        	
+        	Inicio.leerExcel.leerAyuda(Inicio.HERMES_XLS);
+        	proximoIndice = Inicio.leerExcel.proximoIndice;
+        	filaDondeEscribir = Inicio.leerExcel.ultimaFila;
+        	
+	    	System.out.println("PróximoIndice... " + proximoIndice);
+	    	
         	if(!mueveOeliminaImagen(true)){
         		JOptionPane.showMessageDialog(null, "No se pudo mover la imagen temporal");
         	}
@@ -842,8 +851,11 @@ public class VentanaSetUp extends javax.swing.JFrame {
 
   //************************************************************************  	    	
 		
-    	listaPdfs.setSelectedIndex(++indiceArchivoSelecc);
-    	webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+    	if(rutasPdfs.length > ++indiceArchivoSelecc){
+    		listaPdfs.setSelectedIndex(indiceArchivoSelecc);
+        	webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+    	}
+    	
     	
     	/*
     	DefaultListModel listaModeloPdfs = new DefaultListModel();

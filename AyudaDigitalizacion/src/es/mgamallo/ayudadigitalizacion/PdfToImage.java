@@ -65,7 +65,7 @@ public class PdfToImage {
 
 	            File imageFile = new File( destinationDir + fileName + /*pageNumber + */ ".jpg" );// change file format here. Ex: .png, .jpg, .jpeg, .gif, .bmp
 
-	            ImageIO.write(bufferedImage, "png", imageFile);
+	            ImageIO.write(bufferedImage, "jpg", imageFile);
 
 	            System.out.println(imageFile.getName() +" File created in: "+ destinationFile.getCanonicalPath());
 	        } else {

@@ -54,7 +54,7 @@ public class LeerExcel {
 	        
 	        System.out.println("Num filas = " + numFilas + ". Num columnas = " + numColumnas);
 	        
-	        servicios = new String[numColumnas - 13];
+	        servicios = new String[numColumnas - 14];
 	        nombres = new String[numFilas - 1];
 	        
 	        tablaDocumentos = new String[nombres.length + 1][servicios.length +1];

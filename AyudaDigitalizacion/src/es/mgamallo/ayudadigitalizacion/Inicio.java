@@ -16,11 +16,14 @@ public class Inicio {
 	 * @param args
 	 */
 	
-	static final String rutaImagenes = "Perseo/ImagenesAyuda/";
-	static final String rutaImagenesTemp = "Perseo/ImagenesAyuda/temp/";
+	static final String rutaImagenes = "Hermes/ImagenesPdfs/";
+	static final String rutaImagenesTemp = "Hermes/ImagenesPdfs/temp/";
 	
-	static final String RUTA ="j:/digitalización/00 documentacion/02 Revisado/00 Documentos a registrar"; 
-	static final String RUTAB ="H:/DIGITALIZACIÓN/00 DOCUMENTACION/02 Revisado/00 Documentos a registrar";
+	static final String RUTA ="j:/digitalización/00 documentacion/10 Registrar docs"; 
+	static final String RUTAB ="H:/DIGITALIZACIÓN/00 DOCUMENTACION/10 Registrar docs";
+	
+	static final String DOCUMENTOS_XLS = "Documentos.xls";
+	static final String HERMES_XLS = "Hermes.xls";
 	
 	static LeerExcel leerExcel;
 	
@@ -51,8 +54,11 @@ public class Inicio {
 
 		    	
 		    	leerExcel = new LeerExcel();
-		    	leerExcel.leer("DocumentosPerseo.xls");
-		    	leerExcel.leerAyuda("Ayuda Documentos.xls");
+		//    	leerExcel.leer("DocumentosPerseo.xls");
+		//    	leerExcel.leerAyuda("Ayuda Documentos.xls");
+		    	
+		    	leerExcel.leer(DOCUMENTOS_XLS);
+		    	leerExcel.leerAyuda(HERMES_XLS);
 		    	
 		    	proximoIndice = leerExcel.proximoIndice;
 		    	filaDondeEscribir = leerExcel.ultimaFila;
@@ -86,6 +92,8 @@ public class Inicio {
 		comboModelNombres.removeAllElements();
 		
 		// DefaultListModel de todos los nombres
+		listaModelTodosLosNombres.addElement("");
+		comboModelNombres.addElement("");
 		for (int i = 0; i < listaNombresDocumentos.length; i++) {
 			listaModelTodosLosNombres.addElement(listaNombresDocumentos[i]);
 			comboModelNombres.addElement(listaNombresDocumentos[i]);

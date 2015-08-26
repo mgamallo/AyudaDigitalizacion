@@ -25,6 +25,7 @@ public class AbrirCarpeta {
 		explorador.setDialogTitle("Abrir carpeta...");
 		if(!(new File(ruta).exists()))
 			ruta = rutab;
+		
 		explorador.setCurrentDirectory(new File(ruta));
 		explorador.setFileFilter(new FileNameExtensionFilter("Documentos PDF","pdf"));
 		explorador.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
