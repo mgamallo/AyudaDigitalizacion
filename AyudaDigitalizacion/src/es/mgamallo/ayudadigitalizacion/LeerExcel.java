@@ -19,6 +19,8 @@ public class LeerExcel {
 	private String[][] tablaDocumentos;
 	private String[][] asociacionesDocumentos;
 	private String[][] habituales;
+	private String[][] tablaHermesAyuda;
+	private String[][] tablaHermesOCR;
 	
 	//	Para manipular el fichero de ayuda
 	
@@ -158,6 +160,14 @@ public class LeerExcel {
 		return tablaDocumentos;
 	}
 	
+	public String[][] getTablaHermesAyuda(){
+		return tablaHermesAyuda;
+	}
+	
+	public String[][] getTablaHermesOCR(){
+		return tablaHermesOCR;
+	}
+	
 	public String[][] getHabituales(){
 		return habituales;
 	}
@@ -183,7 +193,7 @@ public class LeerExcel {
 	        Sheet hoja = archivoExcel.getSheet(0);
 	        
 	        //	Obtiene los nombres
-	        int numColumnas = 12;
+	        int numColumnas = 11;
 	        int numFilas = 1;
 	        
 	        while(!hoja.getCell(0,numFilas).getContents().toString().equals("ultimo")){
@@ -192,6 +202,22 @@ public class LeerExcel {
 	        
 	        // La última fila será donde escribamos el nuevo registro
 	        ultimaFila = numFilas;
+	        
+	        tablaHermesAyuda = new String[ultimaFila-1][numColumnas];
+	        for(int i=0;i<ultimaFila-1;i++){
+	        	for(int j=0;j<numColumnas;j++){
+	        		tablaHermesAyuda[i][j] = hoja.getCell(j,i+1).getContents().toString();
+	        	}
+	        }
+	        
+	        /*
+	        for(int i=0;i<ultimaFila-1;i++){
+	        	for(int j=0;j<numColumnas;j++){
+	        		System.out.print(tablaHermesAyuda[i][j] + "  ");
+	        	}
+	        	System.out.println();
+	        }
+	        */
 	        
 	        if(ultimaFila != 1){
 	        	
@@ -217,6 +243,40 @@ public class LeerExcel {
 	        
 	        System.out.println("Num filas = " + numFilas + ". Num columnas = " + numColumnas);
 	        System.out.println("Indice: " + proximoIndice);
+	        
+	        
+	        
+			//	Hojas pdf 			
+	        hoja = archivoExcel.getSheet(1);
+	        
+	        //	Obtiene los nombres
+	        numColumnas = 13;
+	        
+	        // La última fila será donde escribamos el nuevo registro
+	        ultimaFila = numFilas;
+	        
+	        tablaHermesOCR = new String[ultimaFila-1][numColumnas];
+	        for(int i=0;i<ultimaFila-1;i++){
+	        	for(int j=0;j<numColumnas;j++){
+	        		tablaHermesOCR[i][j] = hoja.getCell(j,i+1).getContents().toString();
+	        	}
+	        }
+	        
+	        /*
+	        for(int i=0;i<ultimaFila-1;i++){
+	        	for(int j=0;j<numColumnas;j++){
+	        		System.out.print(tablaHermesOCR[i][j] + "  ");
+	        	}
+	        	System.out.println();
+	        }
+	        */
+	        
+	        
+	        
+	        
+	        
+	        
+	        
 	        
 		} catch (BiffException e) {
 			// TODO Auto-generated catch block

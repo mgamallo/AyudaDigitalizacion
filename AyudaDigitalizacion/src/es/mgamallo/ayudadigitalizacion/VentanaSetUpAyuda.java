@@ -6,6 +6,8 @@
 
 package es.mgamallo.ayudadigitalizacion;
 
+import java.awt.Color;
+
 import javax.swing.GroupLayout;
 
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
@@ -63,10 +65,10 @@ public class VentanaSetUpAyuda extends javax.swing.JFrame {
         botonImagen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 800));
+        setPreferredSize(new java.awt.Dimension(1900, 1150));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(600, 800));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1900, 1150));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,6 +120,7 @@ public class VentanaSetUpAyuda extends javax.swing.JFrame {
         comboColor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno", "Amarillo", "Azul", "Marrón", "Naranja", "Rojo", "Rosa", "Verde", "Violeta", " " }));
 
         botonSiguiente.setText("Siguiente");
+        botonSiguiente.setBackground(Color.yellow);
         botonSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonSiguienteActionPerformed(evt);
@@ -230,15 +233,15 @@ public class VentanaSetUpAyuda extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, 1900, 1900, 1900)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, 1900, 1900, 1900)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 835, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, 1100, 1100, 1100)
+            .addComponent(jPanel2, 1100, 1100, 1100)
         );
 
         pack();

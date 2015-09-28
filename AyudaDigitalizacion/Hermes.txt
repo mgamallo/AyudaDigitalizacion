@@ -1,0 +1,533 @@
+#;1;2;4;17;24;28;46;49;94;153;156;172;173
+20.01;99
+42.00;28
+6;98
+61.01;4
+ACVC;159;161
+ALGC;8;37;65;66;101;107;108;110;111;112;114;115;116;117;118;120;121;122;123;124;127;130;131;134;139;171
+ANRC;143;153
+DERC;21
+DIGC;106
+ENDC;96;149;177
+GINC;3
+HAD;22
+HELM;2;28;156;169
+HEMC;28;144
+HEMH;5
+HOSP;1;4;5;30;137;138;146;170;172;173;174
+NEFC;100;102
+NEOP;173
+NMLC;6;65;97;98;141;145
+NRLC;55;56;57;58;59;60;61;62;63;64;103;104;105;167;168;175
+OBSC;174
+OFTC;32;33;34;35;36;93;94;99;158;160;165;166
+ORLC;142;148;150
+PEDC;40;45;47;50;52;53;109;113;119;125;126;128;129;132;133;135;136;140;173
+PSQC;39;46;48;49;54;55;67;68;72;79;90;91;92;146;167;168
+PSQH;48;49;72;79;146
+REHC;15;157
+REUC;27;162;163;164
+Todos;7;9;10;17;19;20;23;24;25;26;29;31;176;178;179
+UDOC;18;154
+UROC;11;12;13;14;16;95
+USMA;39;43;44;46;48;49;51;54;55;63;64;67;68;72;79;90;91;92;146;167;168
+USMI;38;40;41;42;43;45;46;47;49;50;51;52;53;69;70;71;73;74;75;76;77;78;80;81;82;83;84;85;86;87;88;89;147;151;152;155;167
+a3;38;65
+a4;1;2;3;4;5;6;7;8;9;10;11;12;13;14;16;17;18;19;20;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;39;40;41;42;43;44;45;46;47;48;49;50;51;52;53;54;55;56;57;58;59;60;61;62;63;64;66;67;68;69;70;71;72;73;74;75;76;77;78;79;80;81;82;83;84;85;86;87;88;89;90;91;92;93;95;96;97;98;99;100;101;102;103;104;106;107;108;109;110;111;112;113;114;115;116;117;118;119;120;121;122;123;124;125;126;127;128;129;130;131;132;133;134;135;136;137;138;139;140;141;142;143;144;145;146;147;148;149;150;151;152;153;154;155;156;157;158;160;162;163;164;165;166;167;168;169;170;171;173;174;175;176;178;179
+a5;15;21;94;105;159;161;172;177
+abreviada;88
+abreviado ;148
+aceve;39
+acostar;25
+addenbrooke;39
+ados;69
+adrenalina;26
+agricultura;127
+aguacate;107
+aines;134
+alcon;35
+alergenos;128
+alergia;115
+alergologia;125
+alergoloxia;37
+alimentos;107;116
+als;175
+alsfrs;175
+alta;171
+alteracion;103
+alzheimer;103
+amarillo;21;88;99
+analisis;34
+anamnese;143;153;153
+anamnese (cuestionario);95;96;141;142;144;145;147;148;149;151;152;164
+anamnese (escala);85;146;155
+anamnese (mapa dermatomas);154
+anamnese (protocolo vértigo);150
+anestesicos;118
+anexo;149
+anexo 1;17
+anotacion;43;45;50;87;89
+antes;26
+anx;72
+anxiografía;159;161
+análises clínicas;172
+análisis;34
+aplv;137;138
+aritmetica;44
+arterial;172
+atencion;47
+autoevaluativo;77
+autoset;6
+avances;52
+avanza;106
+axcer;102
+az;93
+azul;4;38;41;50;57
+barcelona;67
+barthel;157
+basdai;162;163
+bateria;8;107;116;127;131;134
+bateria urticaria;8
+bcg;14
+betalactamicos;117
+betula;37
+bigotito;96
+biometría óptica;35
+birchwood;146
+bishop;174
+bit;42
+breve;71
+brunet;53;76
+busqueda;73
+cabeza-cuello;170
+caja;17
+calamar;135
+camcog;60
+campimetría;32;34;36
+campo;34;161
+campo unico;34
+carnes;136
+cavidad;100
+cd117;2
+cd19;2
+cd56;2
+chart;173
+chat;147
+cinco;87
+circulo;167
+circulos;48
+citometría;2;169
+citostaticos;28
+citostáticos;28
+clave;90
+clinica;99;154;178
+close;165;166
+cognitive;39
+cognoscitivo;54;63
+coidados en uci;4
+compartir ;151
+comprension;79
+comunicactivo;147
+concentraciones;124
+conners;85
+conocimientos;100
+consentimento informado;66
+consentimiento;66
+contenido;72
+continuidade;4
+continuous;166
+contrastes;130
+control;141;156
+cor;175
+corporal;177
+corticoides;124
+cpap;141
+cpr;40
+creatinine;102
+criterios;80
+cuadernillo;43;50;89
+cuaderno;45
+cuadrados;48
+cuadro;8;76
+cuadrícula;3;7;10;12;16;18;21;22;24;25;26;29;30;35;37;42;43;44;45;50;51;56;57;67;68;94;95;101;107;108;109;110;111;112;113;114;115;116;117;118;119;120;124;125;126;127;128;129;130;131;132;133;134;135;136;137;138;140;146;162;164;165;178;179
+cuatro años;71
+cuento;83
+cuestionario;50;74;143;145;147
+cuestionario d1;143
+cumanes;41;50
+cumanin;81;84
+curves;102
+cutaneas;111;112;117;118;121;122;124;126;130;132
+cynodon;37
+cystistat;12;16
+d1;143
+deficit;80
+definicion;96
+demostracion;38
+demostración;38
+departamento;40;92
+depot;29
+derecha;104
+derivacion;40
+desarrollo;147
+despistaje;142
+destinatario;94
+diagnostico;21;114;150
+diagnóstico;21
+dialisis;100
+dibujo;38;47;48;70;78;83;86;104;105;154;167
+digitos;51;87
+diluciones;156
+disfagia;142
+documentación;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;48;49;50;51;52;53;54;55;56;57;58;59;60;61;62;63;64;65;66;67;68;69;70;71;72;73;74;75;76;77;78;79;80;81;82;83;84;85;86;87;88;89;90;91;92;93;94;95;96;97;98;99;100;101;102;103;104;105;106;107;108;109;110;111;112;113;114;115;116;117;118;119;120;121;122;123;124;125;126;127;128;129;130;131;132;133;134;135;136;137;138;139;140;141;142;143;144;145;146;147;148;149;150;151;152;153;154;155;156;157;158;159;160;161;162;163;164;165;166;167;168;169;170;171;172;173;174;175;176;177;178;179
+dolor;154
+domicilio;22
+dosis;135
+durante;152
+eat;142
+educacion;1
+educacionsanitaria;1
+eje;94
+elaboracion;83
+electrodos;18
+emav;38;47
+endovesical;11;13;14
+epworth;97
+equis;38
+escala;47;57;71;89;97
+escala ela;175
+escala epworth;97
+escala riesgo glaucoma;165;166
+escala valoración funcional;162;163
+escalas;81;85;155
+escolaridad;67
+esferico;94
+española;164
+especialidades;46
+espirometría;65
+esploracion;178
+esquema;53
+estado cognitivo;59
+estado mental;58;62
+estandar;119
+estudo citoxenético centro externo;176
+estudo sono (enquisa);6
+evaluacion;85;96;155
+evolutivo;99
+examen;62;63
+examen cognitivo;60
+examination;39;59
+exploracion;49
+factors;165;166
+familiar;75;152
+farmacia;22
+farmaco;140
+fecha transf;5
+felicidad;151
+fellow european;20
+fetal;173
+ficha;22
+figuras;38;43
+fingolimod;179
+fisioterapia;46
+fisium;15
+flow;65
+fluidez;69
+folstein;57
+foto;158;159;160
+fotos;91
+fototest;91
+frases;74
+frio;114
+frontal;168
+frs;72
+frutas;107;133
+frutos;129
+generador;161
+general;93
+gilenya;179
+global;149
+gota;135
+graduacion;93
+grasa;177
+graxa corporal;177
+growth;173
+gráfico;2;32;33;34;36;65;72;82;84;89;102;156;169;171;173;175
+hado;22
+handicap;148
+haq;164
+health;164
+hematies;5
+heparina;110
+heparinas;110
+himenopteros;111
+hiperactividad;80
+hirsutismo;96
+historia;75;99;152
+historietas;79
+hoja;87;146;174;178
+hoja de seguimiento;1
+hoja tratamiento;9
+hongos;112
+horizontal;3;15;21;26;30;38;70;82;85;86;105;155;159;161
+hospital;154;158;160
+huevo;113;116
+humira;27
+ies;92
+ige;138
+iliaca;159
+incompletas;74
+index;148
+indice;157
+indice barthel;157
+indice de bishop;174
+individual;82
+induccion;3;174
+inducción;3
+ineco;168
+infancia;53;76
+infant;173
+infliximab;30
+informacion;51
+informe;40;52;92;106;169
+informe enfermaría;4
+informe fisioterapia centro externo;15
+informe logopedia centro externo;46
+informe médico centro externo;7
+informe psicopedagoxía centro externo;40;52
+inmediata;103
+instilaciones;11;13
+integrado;49
+inteligencia;42
+intravesical;12
+iodados;130
+iontoforesis;18
+ipss;95
+izq;104
+jueves;171
+kaufman;42
+kbit;42
+labios;101
+laboratorio;169
+laboratory;176
+latex;115
+lavado;26
+leche;113;116
+legumbres;116
+lente;35
+letras;68
+leuc;2
+lezine;53;76
+lidocaina;118
+locales;118
+logopedia;46
+m-chat;147
+madurez;50
+magallanes;47
+marcha;98
+marrón;28
+martes;171
+martitor;127
+masa;177
+masticar;101
+matrices;44
+mec;62
+mediada;137;138
+medica;75;152
+medicacion;22
+medicamento;121
+medicamentos;122;123;126;132;140
+mediciones;26
+medico prescritor;17
+memoria;103
+mental;56
+mini;55;56;63
+mini examen;55
+mini-mental;54;55;57;59;61;64
+miniexamen;58
+minutos;98
+mmse;54;56;58;62;64
+modo;161
+modulo;69
+montecelo;154
+mucosas;101
+muestra;151;169;172
+multifactorial;77
+name;158;160
+nasal;26
+nestle;142
+neuropatia;144
+ninguno;1;1;3;4;5;5;6;6;7;8;9;9;10;11;11;12;13;13;14;14;15;15;16;17;17;18;19;19;20;20;22;23;23;24;25;26;27;27;28;29;30;31;31;32;34;35;36;37;39;39;40;40;41;42;43;44;45;46;46;47;48;49;49;51;52;52;53;54;54;55;55;56;58;58;59;59;60;60;61;61;62;62;63;63;64;64;65;66;66;67;68;69;69;71;71;72;73;73;74;74;75;75;76;77;77;79;79;80;80;81;81;82;83;83;84;85;85;87;87;88;89;90;90;91;91;92;92;93;93;95;96;96;97;97;98;98;99;100;100;101;102;103;103;104;105;106;106;107;108;109;110;111;112;113;114;115;116;117;118;119;120;121;121;122;122;123;123;124;125;126;127;128;129;130;131;132;133;134;135;137;138;139;139;140;141;141;142;142;143;143;144;144;145;145;146;147;147;148;148;149;149;150;150;151;151;152;152;153;153;154;155;155;157;157;159;161;161;162;163;163;164;165;166;166;167;168;168;169;170;170;171;172;172;173;174;174;175;176;176;177;177;178;179
+niño;83;151
+noige;137
+novasource;31
+num ropa;7
+numeros;167
+nutricion;19;31
+nutrición;19;31
+objetivo;177
+obs;72
+ocultos;128
+oftalmoloxia;99
+ojo;32;34;35;36
+optica;93
+optometrista;93
+ordes médicas (protocolo precirúrxico);170
+orientacion;40;92
+ovulacion;3
+ovulación;3
+paciente;149;156
+pacientes;85;141;145;155
+panaderia;131
+paneles;169
+parameter;65
+parte;73
+pataletas;71
+patient;65
+pauta;19;31
+pauta semanal;16
+pediatrica;109;113;119;125;126;128;129;133;136
+pediatricos;155
+perfil;82;84;146
+periferica;144
+peritoneal;100
+pescados;107;136
+pesticidas;127
+pet;102
+pico flujo;171
+plantilla;110
+poag;166
+point;165
+polen;119
+policlinico;46
+polisomnografia;6
+posologia;24
+ppl;126
+preanestesica;153
+prenatal;152
+prequirurgico;170
+prescripcion;25
+prescripción;25
+prescriptor;30
+prick;37;108;109;113;119;120;124;125;128;129;131;132;133;136
+prick test;37;101;107;108;109;110;111;112;113;115;116;117;118;119;120;122;124;126;127;128;129;130;131;132;133;134;136
+primera;53
+principales;81
+proba diagnóstica;121
+probas;121;122;123;139
+probas provocación;123;135;137;138;139;140
+probas urticaria;8;114;125
+programa;49
+prolec;45
+prostaticos;95
+protocolo;114;115;150;170
+provocacion;115;135;137;138
+prueba;115
+pruebas;101;108;111;112;117;118;120;124;126;130;131;132
+psicologico;52
+psicomotor;53;76
+psicomotricidad;81
+puntuacion;51
+puntuaciones;45
+rapid;172
+rapidpoint;172
+reaccion;21
+reference;176
+refracción-gradación centro externo;93
+registro;178
+reia;106
+reloj;167
+residencia;10
+resultados;106
+resumen;45
+retinografía;158;160
+reumatologia;162;163
+revascul;159
+rexistro enfermaría;1;178;179
+rnfl;33
+robleda;23
+rojo;156
+rompecabezas;68
+ruo;169
+salinas;156
+sanatorio;23
+sanitaria;1
+sas;145
+screening;168
+seccion b;60
+secos;129
+seguimiento;1
+seijo martinez;20
+semejanzas;90
+sfs;146
+simbolos;73
+sintoma;144
+snap;88
+solicitud;17;27
+somatometría;173
+soremay;10
+sospecha;145
+ss int;2
+standard;109
+state;59
+subjetiva;149
+sublingual;135
+subtest;67
+system;165
+tamai;77
+tdah;85;155
+terminacion;51;68;79
+test;49;55;61;67;77;87;98;100;103;174
+test ;91
+test alento centro externo;106
+test barcelona;49
+test breve;42
+test deterioro cognitivo;91;103;167;168
+test marcha 6 min;98
+test mini-mental;54;55;56;57;58;59;60;61;62;63;64
+test permeabilidade peritoneal;100;102
+test psicolóxico;38;39;41;42;43;44;45;47;48;49;50;51;53;67;68;69;70;71;72;73;74;75;76;77;78;79;80;81;82;83;84;86;87;88;89;90;92
+test rgo;156
+test trastornos movemento;104;105
+thickness;33
+tolerancia;101;121;122;123;139;140
+tomas 1 a 3;7
+tomografía coherencia óptica;33
+traducida;164
+transfusión;5
+tratamento;3;9;11;12;13;14;16;17;18;19;21;22;24;26;27;29;30;31
+tratamento (citostáticos);28
+tratamento centro externo;10;20;23;25
+tratamiento;9;10;14;18;27
+tratamiento endovesical;11
+tratamientos;24
+tratamientos utilizados;17
+tres en uno;32;36
+triangulos;48
+uci;4
+unidad;19
+unidad de sueño;6
+urea;102
+urticaria;8;114;125
+uv;21
+uv-doses;21
+validez;72
+valoracion;149
+varios;2;33;70;78;86;94;136;158;160
+venenos;111
+verbal;69
+version;88;164
+vertical;1;2;4;5;6;7;8;9;10;11;12;13;14;16;17;18;19;20;22;23;24;25;27;28;29;31;32;33;34;35;36;37;39;40;41;42;43;44;45;46;47;48;49;50;51;52;53;54;55;56;57;58;59;60;61;62;63;64;65;66;67;68;69;71;72;73;74;75;76;77;78;79;80;81;83;84;87;88;89;90;91;92;93;94;95;96;97;98;99;100;101;102;103;104;106;107;108;109;110;111;112;113;114;115;116;117;118;119;120;121;122;123;124;125;126;127;128;129;130;131;132;133;134;135;136;137;138;139;140;141;142;143;144;145;146;147;148;149;150;151;152;153;154;156;157;158;160;162;163;164;165;166;167;168;169;170;171;172;173;174;175;176;177;178;179
+vertigo;150
+vhi;148
+vidrio;94
+viscosidad;178
+visual;47;161
+vithas;15
+voice;148
+waiss;43
+wechsler;89
+window;165;166
+wisc;89
+xunta;7;92
+zeiss;35

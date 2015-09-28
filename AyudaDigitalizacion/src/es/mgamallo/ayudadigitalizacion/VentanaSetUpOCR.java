@@ -1,5 +1,7 @@
 package es.mgamallo.ayudadigitalizacion;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 
 
@@ -84,6 +86,7 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
         labelNombreNormalizado.setText("Nombre Normalizado");
 
         botonAnterior.setText("Anterior");
+        botonAnterior.setBackground(Color.yellow);
         botonAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAnteriorActionPerformed(evt);
@@ -94,6 +97,7 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
 
 
         botonRegistrar.setText("Registrar");
+        botonRegistrar.setBackground(Color.green);
 
         labelDocumento1.setText("Identifica Documento 1");
 

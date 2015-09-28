@@ -37,7 +37,7 @@ public class WebBrowser {
 		        frame.setMinimumSize(new Dimension(800,300));
 		        frame.setLocationByPlatform(true); 
 		        
-		        // webBrowserPanel.setBackground(color);
+		        //webBrowserPanel.setBackground(Color.gray);
 		        	        
 		       frame.setVisible(true); 
 		      }   
@@ -58,8 +58,8 @@ public class WebBrowser {
 	    //webBrowser.navigate("D:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\arreglar.pdf");
 	    System.out.println("Pdf");
 	    
-	    webBrowser.setBarsVisible(false);
-	    webBrowser.setMenuBarVisible(false);
+	    webBrowser.setBarsVisible(true);
+	    webBrowser.setMenuBarVisible(true);
 	    // System.out.println(webBrowser.getBrowserType());
 	    webBrowser.setJavascriptEnabled(true);
 	    

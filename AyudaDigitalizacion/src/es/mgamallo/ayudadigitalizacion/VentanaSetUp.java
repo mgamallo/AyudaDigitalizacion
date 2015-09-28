@@ -1,8 +1,11 @@
 package es.mgamallo.ayudadigitalizacion;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -18,10 +21,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -48,7 +53,15 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	
 	Modelo modeloActual = new Modelo();
 	
+	
+	Dimension dimPanel1 = new Dimension(1300,1150);
+	Dimension dimPanel2 = new Dimension(400,1150);
+	
 	CargaListaPdfs pdfs;
+	
+	private int indexBorrar = -1;
+	private PopupMenu menuPop = new PopupMenu();
+	private MenuItem itemBorrar = new MenuItem("Borrar registro");
 	
 	public String proximoIndice = "";
 	public int filaDondeEscribir;
@@ -123,7 +136,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jPanel0 = new javax.swing.JPanel();
         jSplitPane0 = new javax.swing.JSplitPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaPdfs = new javax.swing.JList();
+        Inicio.listaPdfs = new javax.swing.JList();
         jSplitPane1 = new javax.swing.JSplitPane();
         
         
@@ -134,14 +147,15 @@ public class VentanaSetUp extends javax.swing.JFrame {
         panelSetupAyuda = new javax.swing.JPanel();
         panelSetupOCR = new javax.swing.JPanel();
         
-        webBrowser = new JWebBrowser();
+        Inicio.webBrowser = new JWebBrowser();
        //  webBrowser.navigate("http://www.google.es");
        // webBrowser.navigate("F:/Desarrollo/git/AyudaDigitalizacion/AyudaDigitalizacion/ocr.pdf");
-        webBrowser.setVisible(false);
+        Inicio.webBrowser.setVisible(false);
         
-        webBrowser.setBarsVisible(false);
-        webBrowser.setMenuBarVisible(false);
-        
+        Inicio.webBrowser.setBarsVisible(false);
+        Inicio.webBrowser.setMenuBarVisible(false);
+        Inicio.webBrowser.setJavascriptEnabled(true);
+                
         //  Variables del panelOCR *********************************************
  
         
@@ -197,14 +211,21 @@ public class VentanaSetUp extends javax.swing.JFrame {
         labelIdentificaCIP.setText("Identifica CIP");
         labelIdentificaNSS.setText("Identifica NSS");
         
+        menuPop.add(itemBorrar);
+        
+        
+        
+        
         botonRegistrar.setText("Registrar");
+        botonRegistrar.setBackground(Color.green);
         botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistrarActionPerformed(evt);
+                botonRegistrarActionPerformed(false);
             }
         });
         
         botonAnterior.setText("Anterior");
+        botonAnterior.setBackground(Color.yellow);
         botonAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAnteriorActionPerformed(evt);
@@ -271,10 +292,14 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu3 = new JMenu();
+        jMenu4 = new JMenu();
         
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         // setPreferredSize(new java.awt.Dimension(1100, 900));
 
         // jPanel0.setPreferredSize(new java.awt.Dimension(1100, 850));
@@ -283,36 +308,61 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jSplitPane0.setOneTouchExpandable(true);
 
 
-        listaPdfs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaPdfs.addMouseListener(new MouseAdapter() {
+        Inicio.listaPdfs.add(menuPop);
+        Inicio.listaPdfs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Inicio.listaPdfs.addMouseListener(new MouseAdapter() {
         	public void mouseClicked(MouseEvent ev){
         		pulsarListaPdfs(ev);
         	}
+        	
+        	public void mouseReleased(MouseEvent ev){
+        		if(ev.isPopupTrigger() && Inicio.editando){
+        			indexBorrar = Inicio.listaPdfs.locationToIndex(ev.getPoint());
+        			menuPop.show(Inicio.listaPdfs, ev.getPoint().x + 30, ev.getPoint().y);
+         			
+        		}
+        	}
 		});
         
-        jScrollPane3.setViewportView(listaPdfs);
+        itemBorrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int aceptar = JOptionPane.showConfirmDialog(null, "Seguro que quiere borrar el registro");
+				if(aceptar == JOptionPane.OK_OPTION){
+					// Borrar todos los campos
+					System.out.println("Borrando... " + indexBorrar + "  " + Inicio.listaModeloJpgs.get(indexBorrar).toString());
+					int num = Integer.valueOf(Inicio.listaModeloJpgs.get(indexBorrar).toString());
+					borrarRegistro(num);
+				}
+			}
+		});
+        
+        
+        jScrollPane3.setViewportView(Inicio.listaPdfs);
 
         jSplitPane0.setLeftComponent(jScrollPane3);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(600, 800));
+        jPanel1.setPreferredSize(new java.awt.Dimension(dimPanel1.width,dimPanel1.height));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(webBrowser)
+            .addComponent(Inicio.webBrowser)
             //.addGap(0, 600, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(webBrowser)
-            //.addGap(0, 827, Short.MAX_VALUE)
+            .addComponent(Inicio.webBrowser)
+            .addGap(0, 827, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(400, 800));
+        jPanel2.setPreferredSize(new java.awt.Dimension(dimPanel2.width,dimPanel2.height));
 
         listaServicios.setModel(Inicio.listaModelServicios);
         scrollServicios.setViewportView(listaServicios);
@@ -352,6 +402,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         comboColor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno", "Amarillo", "Azul", "Marrón", "Naranja", "Rojo", "Rosa", "Varios","Verde", "Violeta"}));
 
         botonSiguiente.setText("Siguiente");
+        botonSiguiente.setBackground(Color.yellow);
         botonSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonSiguienteActionPerformed(evt);
@@ -374,6 +425,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         );
 
         botonImagen.setText("Añadir Imagen");
+        botonImagen.setBackground(Color.pink);
         botonImagen.addActionListener(new ActionListener() {
 			
 			@Override
@@ -469,7 +521,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrollServicios)
-            .addComponent(panelSetupAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelSetupAyuda, 1100, 1100, 1100)
         );
 
         jSplitPane1.setRightComponent(jPanel2);
@@ -490,7 +542,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jPanel0Layout.setVerticalGroup(
             jPanel0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel0Layout.createSequentialGroup()
-                .addComponent(jSplitPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSplitPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 1120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 19, Short.MAX_VALUE))
         );
         
@@ -609,6 +661,10 @@ public class VentanaSetUp extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+				Inicio.editando = false;
+				imagenExtraida = false;
+				
 				pdfs = new CargaListaPdfs();
 				
 				if(pdfs.nombrePdfs.length > 0){
@@ -621,12 +677,12 @@ public class VentanaSetUp extends javax.swing.JFrame {
 						rutasPdfs[i] = pdfs.rutaPdfs[i];
 					}
 					
-					listaPdfs.setModel(listaModeloPdfs);
+					Inicio.listaPdfs.setModel(listaModeloPdfs);
 					indiceArchivoSelecc = 0;
-					listaPdfs.setSelectedIndex(indiceArchivoSelecc);
-					webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+					Inicio.listaPdfs.setSelectedIndex(indiceArchivoSelecc);
+					Inicio.webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
 					
-					webBrowser.setVisible(true);
+					Inicio.webBrowser.setVisible(true);
 				}
 
 			}
@@ -637,12 +693,65 @@ public class VentanaSetUp extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Editar");
+        jMenu3.setText("Indexar");
+        jMenu4.setText("Salir");
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Editar");
         jMenu2.add(jMenuItem2);
+        
+        jMenuItem2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Inicio.editando = true;
+				reseteaCampos();
+				new VentanaDialogoRevisar();
+			}
+		});
+        
+        
+        
+        jMenuItem3.setText("Indexar tabla de ayuda");
+        jMenu3.add(jMenuItem3);
+        
+        jMenuItem3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				new AyudaIndex(false, true);
+			}
+		});
+        
+        jMenuItem4.setText("Salir indexando");
+        jMenuItem4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				new AyudaIndex(false, true);
+				System.exit(0);
+			}
+		});
+        
+        jMenu4.add(jMenuItem4);
+        jMenu4.add(jMenuItem5);
+        
+        jMenuItem5.setText("Salir");
+        jMenuItem5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 
         jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -658,11 +767,12 @@ public class VentanaSetUp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 850, Short.MAX_VALUE))
+              //  .addGap(0, 850, Short.MAX_VALUE)
+                )
         );
         
-       setSize(1200,900);
-       setResizable(false);
+       setSize(1900,1180);
+       setResizable(true);
 
        // pack();
     }// </editor-fold>                        
@@ -727,7 +837,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	        jPanel2Layout.setVerticalGroup(
 	            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	            .addComponent(scrollServicios)
-	            .addComponent(panelSetupOCR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	            .addComponent(panelSetupOCR, 1150, 1150, 1150)
 	        );
     	}
     	
@@ -760,43 +870,104 @@ public class VentanaSetUp extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAnteriorActionPerformed
     
     private void pulsarListaPdfs(MouseEvent ev){
-       	if(ev.getButton() == 1){
-    		System.out.println("Boton izquierdo");
-    		int i= JOptionPane.showConfirmDialog(null, "Se van a resetear los campos. ¿Desea continuar?");
-    		if(i == JOptionPane.OK_OPTION){
-        		indiceArchivoSelecc = listaPdfs.getSelectedIndex();
-        		
-        		reseteaCampos();
-        		
-        		System.out.println(rutasPdfs[indiceArchivoSelecc]);
-        		webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
-        		imagenExtraida = false;
-    		}
-    		else{
-    			listaPdfs.setSelectedIndex(indiceArchivoSelecc);
-    		}
-    		
-    		    		
-    	}else if(ev.getButton() == 2){
-    		System.out.println("Boton central");
+    	
+    	imagenExtraida = false;
+    	
+    	if(Inicio.editando){
+           	if(ev.getButton() == 1){
+        		System.out.println("Boton izquierdo");
+
+            		//indiceArchivoSelecc = Inicio.listaPdfs.getSelectedIndex();
+            		
+            		int indice = Integer.valueOf(Inicio.listaPdfs.getSelectedValue().toString());
+            		
+        			String proximoIndice = "";
+    	        	if(indice > 999 && indice < 10000 ){
+    	        		proximoIndice += "0";
+    	        	}
+    	        	else if(indice > 99 && indice < 1000 ){
+    	        		proximoIndice += "00";
+    	        	}
+    	        	else if(indice > 9 && indice < 100 ){
+    	        		proximoIndice += "000";
+    	        	}
+    	        	else if(indice < 10 ){
+    	        		proximoIndice += "0000";
+    	        	}
+        			
+        			
+                	proximoIndice += indice;
+        			String ruta = Inicio.rutaHermes + "\\Index_" + proximoIndice + ".jpg";
+            		
+            		
+            		
+            		reseteaCampos();
+            		
+            		String html = "<html> <body> <img src='" + ruta 
+            				+ "' width='750px'> </body> </html>";
+
+            		Inicio.webBrowser.setHTMLContent(html);
+            		imagenExtraida = true;
+
+            		actualizaCampos(indice);
+            		
+            		
+        		    		
+        	}else if(ev.getButton() == 2){
+        		System.out.println("Boton central");
+        	}
+        	else{
+        		System.out.println("Boton derecho");
+        	}
     	}
+
     	else{
-    		System.out.println("Boton derecho");
+           	if(ev.getButton() == 1){
+        		System.out.println("Boton izquierdo");
+        		int i= JOptionPane.showConfirmDialog(null, "Se van a resetear los campos. ¿Desea continuar?");
+        		if(i == JOptionPane.OK_OPTION){
+            		indiceArchivoSelecc = Inicio.listaPdfs.getSelectedIndex();
+            		
+            		reseteaCampos();
+            		
+            		System.out.println(rutasPdfs[indiceArchivoSelecc]);
+            		Inicio.webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+            		imagenExtraida = false;
+        		}
+        		else{
+        			Inicio.listaPdfs.setSelectedIndex(indiceArchivoSelecc);
+        		}
+        		
+        		    		
+        	}else if(ev.getButton() == 2){
+        		System.out.println("Boton central");
+        	}
+        	else{
+        		System.out.println("Boton derecho");
+        	}
     	}
+
     }
     
-    private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnteriorActionPerformed
+    private void botonRegistrarActionPerformed(boolean borrar) {//GEN-FIRST:event_botonAnteriorActionPerformed
         // TODO add your handling code here:
     	
     	modeloActual.nombreNormalizado = comboNombresNormalizadoOcr.getSelectedItem().toString();
     	
-    	ArrayList servicios = new ArrayList();
+    	ArrayList<String> servicios = new ArrayList<String>();
     	
-    	for(int i=0;i<listaServicios.getSelectedIndices().length;i++){
-    		servicios.add(listaServicios.getSelectedValues()[i].toString());
+    	if(!borrar){
+        	for(int i=0;i<listaServicios.getSelectedIndices().length;i++){
+        		servicios.add(listaServicios.getSelectedValues()[i].toString());
+        	}
+        	    	
+        	modeloActual.pdf.servicios = servicios;
     	}
-    	
-    	modeloActual.pdf.servicios = servicios;
+    	else{
+    		servicios.add("");
+    		modeloActual.pdf.servicios = servicios;
+    	}
+
     	
     	modeloActual.ocr.metadatos[0] = campoDocYservicio.getText();
     	modeloActual.ocr.metadatos[1] = campoDocumento1.getText();   	
@@ -807,11 +978,24 @@ public class VentanaSetUp extends javax.swing.JFrame {
     	modeloActual.ocr.identificaCIP = campoIdentificaCIP.getText();
     	modeloActual.ocr.identificaNSS = campoIdentificaNSS.getText();
     	
-    	modeloActual.pdf.fisica.orientacion = comboOrientacion.getSelectedItem().toString(); 
+    	modeloActual.pdf.observaciones = areaTextoObservaciones.getText();
     	
-    	modeloActual.pdf.fisica.formato = comboFormato.getSelectedItem().toString();
-    	modeloActual.ocr.urgOdocumentacion = comboUrgencias.getSelectedItem().toString();
+    	if(!borrar){
+        	modeloActual.pdf.fisica.orientacion = comboOrientacion.getSelectedItem().toString(); 
+        	modeloActual.pdf.fisica.formato = comboFormato.getSelectedItem().toString();
+        	modeloActual.ocr.urgOdocumentacion = comboUrgencias.getSelectedItem().toString();
+    	}
+    	else{
+          	modeloActual.pdf.fisica.orientacion = ""; 
+        	modeloActual.pdf.fisica.formato = "";
+        	modeloActual.ocr.urgOdocumentacion = "";
+        	
+        	modeloActual.pdf.fisica.color = "";
+        	modeloActual.pdf.fisica.apariencia = "";
+    	}
 
+    	
+/*
     	
     	for(int i=0;i<modeloActual.pdf.servicios.size();i++){
     		System.out.println("   " + modeloActual.pdf.servicios.get(i));
@@ -824,37 +1008,76 @@ public class VentanaSetUp extends javax.swing.JFrame {
     	System.out.println(modeloActual.ocr.identificaNhc);
     	System.out.println(modeloActual.pdf.fisica.orientacion);
     	System.out.println(modeloActual.pdf.fisica.formato);
-
+*/
      	
     	jPanel2.removeAll();
     	
-    	System.out.println("Fila donde escribir... " + filaDondeEscribir);
-    	
-    	EscribeExcel escribe = new EscribeExcel();
-    	boolean exito = escribe.escribir(Inicio.HERMES_XLS, modeloActual, filaDondeEscribir);
-    	
-    	if(exito){
-        	reseteaCampos();
-        	JOptionPane.showMessageDialog(null, "Modelo registrado");
-        	
-        	Inicio.leerExcel.leerAyuda(Inicio.HERMES_XLS);
-        	proximoIndice = Inicio.leerExcel.proximoIndice;
-        	filaDondeEscribir = Inicio.leerExcel.ultimaFila;
-        	
-	    	System.out.println("PróximoIndice... " + proximoIndice);
-	    	
-        	if(!mueveOeliminaImagen(true)){
-        		JOptionPane.showMessageDialog(null, "No se pudo mover la imagen temporal");
+    	if(Inicio.editando){
+    		int indice = Integer.valueOf(Inicio.listaPdfs.getSelectedValue().toString());
+    		System.out.println("Fila donde escribir... " + indice);
+			
+			String proximoIndice = "";
+        	if(indice > 999 && indice < 10000 ){
+        		proximoIndice += "0";
         	}
-        	imagenExtraida = false;
+        	else if(indice > 99 && indice < 1000 ){
+        		proximoIndice += "00";
+        	}
+        	else if(indice > 9 && indice < 100 ){
+        		proximoIndice += "000";
+        	}
+        	else if(indice < 10 ){
+        		proximoIndice += "0000";
+        	}
+			
+        	proximoIndice += indice;
+    		
+    		
+        	modeloActual.identificador = "Index_" + proximoIndice;
+    		
+        	EscribeExcel escribe = new EscribeExcel();
+        	boolean exito = escribe.escribir(Inicio.HERMES_XLS, modeloActual, indice, true);
+        	
+        	if(exito){
+        		JOptionPane.showMessageDialog(null, "Modificación realizada con éxito.");
+        		new AyudaIndex(true, true);
+        	}
+        	else{
+        		JOptionPane.showMessageDialog(null, "Modificación no realizada.");
+        	}
+        	
+        	
+    	}
+    	else{
+        	System.out.println("Fila donde escribir... " + filaDondeEscribir);
+        	
+        	EscribeExcel escribe = new EscribeExcel();
+        	boolean exito = escribe.escribir(Inicio.HERMES_XLS, modeloActual, filaDondeEscribir,false);
+        	
+        	if(exito){
+            	reseteaCampos();
+            	JOptionPane.showMessageDialog(null, "Modelo registrado");
+            	
+            	Inicio.leerExcel.leerAyuda(Inicio.HERMES_XLS);
+            	proximoIndice = Inicio.leerExcel.proximoIndice;
+            	filaDondeEscribir = Inicio.leerExcel.ultimaFila;
+            	
+    	    	System.out.println("PróximoIndice... " + proximoIndice);
+    	    	
+            	if(!mueveOeliminaImagen(true)){
+            		JOptionPane.showMessageDialog(null, "No se pudo mover la imagen temporal");
+            	}
+            	imagenExtraida = false;
+        	}
+
+      //************************************************************************  	    	
+    		
+        	if(rutasPdfs.length > ++indiceArchivoSelecc){
+        		Inicio.listaPdfs.setSelectedIndex(indiceArchivoSelecc);
+            	Inicio.webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
+        	}
     	}
 
-  //************************************************************************  	    	
-		
-    	if(rutasPdfs.length > ++indiceArchivoSelecc){
-    		listaPdfs.setSelectedIndex(indiceArchivoSelecc);
-        	webBrowser.navigate(rutasPdfs[indiceArchivoSelecc]);
-    	}
     	
     	
     	/*
@@ -933,7 +1156,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
     	campoMetadato5.setText("");
     	
     	listaServicios.clearSelection();
-    	
+    	    	
     	etiquetaImagen.setIcon(null);
     	
     }
@@ -962,22 +1185,99 @@ public class VentanaSetUp extends javax.swing.JFrame {
      */
     
     public void setPdf(){
-    	webBrowser.navigate("d:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\ocr.pdf");
+    	Inicio.webBrowser.navigate("d:\\Desarrollo\\git\\AyudaDigitalizacion\\AyudaDigitalizacion\\ocr.pdf");
     }
     
     private void capturaImagen(String ruta, int indice){
     	
-    	PdfToImage image = new PdfToImage(ruta,proximoIndice);
+    	if(!Inicio.editando){
+        	PdfToImage image = new PdfToImage(ruta,proximoIndice);
+        	
+            ImageIcon fot = new ImageIcon(Inicio.rutaImagenesTemp + proximoIndice + ".jpg");
+            Icon icono = new ImageIcon(fot.getImage().getScaledInstance(150, 200, Image.SCALE_SMOOTH));
+            
+            etiquetaImagen.setIcon(icono);
+            imagenExtraida = true;
+            this.repaint();
+    	}
+
+   	
+    }
+    
+    public void borrarRegistro(int indice){
     	
-        ImageIcon fot = new ImageIcon(Inicio.rutaImagenesTemp + proximoIndice + ".jpg");
-        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(150, 200, Image.SCALE_SMOOTH));
-        
-        etiquetaImagen.setIcon(icono);
-        imagenExtraida = true;
-        this.repaint();
+    	reseteaCampos();
     	
+    	comboOrientacion.removeAllItems();
+    	comboOrientacion.addItem("");
+    	comboFormato.removeAllItems();
+    	comboFormato.addItem("");
+    	comboUrgencias.removeAllItems();
+    	comboUrgencias.addItem("");
+    	comboApariencia.removeAllItems();
+    	comboApariencia.addItem("");
+    	comboColor.removeAllItems();
+    	comboColor.addItem("");
+    	
+    	listaServicios.removeAll();
+    	
+    	botonRegistrarActionPerformed(true);
     	
     }
+    
+    public void actualizaCampos(int indice){
+    	String ayuda[][] = Inicio.leerExcel.getTablaHermesAyuda();
+    	String ocr[][] = Inicio.leerExcel.getTablaHermesOCR();
+    	
+    	comboNombresNormalizadoPdf.setSelectedItem(ayuda[indice-1][1]);
+    	
+    	campoMetadato1.setText(ayuda[indice-1][2].toString());
+    	campoMetadato2.setText(ayuda[indice-1][3].toString());
+    	campoMetadato3.setText(ayuda[indice-1][4].toString());
+    	campoMetadato4.setText(ayuda[indice-1][5].toString());
+    	campoMetadato5.setText(ayuda[indice-1][6].toString());
+    	
+        comboApariencia.setSelectedItem(ayuda[indice-1][7].toString()); 
+        comboColor.setSelectedItem(ayuda[indice-1][8].toString()); 
+        
+        String serv[] = ayuda[indice-1][9].split(",");
+        
+        listaServicios.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
+        int indices[] = new int[serv.length];
+        for(int i=0,z=0;i<Inicio.listaModelServicios.size() && z < serv.length;i++){
+        	System.out.println(Inicio.listaModelServicios.getElementAt(i));
+        	
+        	if(Inicio.listaModelServicios.getElementAt(i).toString().equals(serv[z])){
+        		indices[z] = i;
+        		z++;
+        	}
+        }
+ 
+        listaServicios.setSelectedIndices(indices);
+        
+        areaTextoObservaciones.setText(ayuda[indice-1][10].toString());
+        
+        campoDocYservicio.setText(ocr[indice-1][9].toString());
+        campoDocumento1.setText(ocr[indice-1][7].toString());
+        campoDocumento2.setText(ocr[indice-1][8].toString());
+        campoServicio.setText(ocr[indice-1][6].toString());
+        
+        comboOrientacion.setSelectedItem(ocr[indice-1][3].toString());
+        comboFormato.setSelectedItem(ocr[indice-1][4].toString());
+        comboUrgencias.setSelectedItem(ocr[indice-1][5].toString());
+        
+        
+    	campoIdentificaNHC.setText(ocr[indice-1][10].toString());
+
+    	campoIdentificaNSS.setText(ocr[indice-1][11].toString());
+
+    	campoIdentificaCIP.setText(ocr[indice-1][12].toString());
+
+        
+      //  listaServicios.setSelected;
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -1028,12 +1328,16 @@ public class VentanaSetUp extends javax.swing.JFrame {
     private javax.swing.JComboBox comboNombresNormalizadoPdf;
     private javax.swing.JComboBox comboNombresNormalizadoOcr;    
     private javax.swing.JList listaServicios;
-    private javax.swing.JList listaPdfs;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel0;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
@@ -1050,7 +1354,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
     private javax.swing.JPanel panelSetupAyuda;
     private javax.swing.JPanel panelSetupOCR;
     private javax.swing.JScrollPane scrollServicios;
-    public JWebBrowser webBrowser;
+
     private JLabel etiquetaImagen;
     // End of variables declaration                   
 }
