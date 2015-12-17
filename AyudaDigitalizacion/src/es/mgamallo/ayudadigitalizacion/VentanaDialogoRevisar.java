@@ -9,6 +9,10 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class VentanaDialogoRevisar extends javax.swing.JDialog {
@@ -48,9 +52,24 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(VentanaDialogoRevisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     	
-    	       
+    	barraMenu = new JMenuBar();
+    	jMenu1 = new JMenu();
+    	jMenuItem1 = new JMenuItem("Lista secuencial de documentos");
         
-    	
+        setJMenuBar(barraMenu);
+        barraMenu.add(jMenu1);
+        jMenu1.add(jMenuItem1);
+        
+        jMenu1.setText("Lista de documentos");
+        jMenuItem1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				botonSeleccionarActionPerformed(e, true);
+			}
+		});
+        
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         etiquetaNombresNormalizados = new javax.swing.JLabel();
@@ -58,13 +77,14 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
         etiquetaMetadatos = new javax.swing.JLabel();
         comboMetadatos = new javax.swing.JComboBox();
         botonSeleccionar = new javax.swing.JButton();
+        
         etiquetaNombresExistentes = new javax.swing.JLabel();
         comboNombresExistentes = new javax.swing.JComboBox();
         botonCambiarNombre = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(400, 320));
-        setPreferredSize(new java.awt.Dimension(400, 320));
+        setMaximumSize(new java.awt.Dimension(400, 340));
+        setPreferredSize(new java.awt.Dimension(400, 340));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
@@ -88,7 +108,7 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
         botonSeleccionar.setText("Seleccionar");
         botonSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSeleccionarActionPerformed(evt);
+                botonSeleccionarActionPerformed(evt, false);
             }
         });
         
@@ -126,7 +146,7 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            	.addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonSeleccionar)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -255,7 +275,7 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
     }
     
     
-    private void botonSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionarActionPerformed
+    private void botonSeleccionarActionPerformed(java.awt.event.ActionEvent evt, boolean mostrarListaSecuencial) {//GEN-FIRST:event_botonSeleccionarActionPerformed
         // TODO add your handling code here:
     	
     	String docs[] = new String[2];
@@ -265,14 +285,32 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
     	
     	Set<Integer> conjunto = new TreeSet<Integer>();
     	
-    	for(int z=0;z < 2;z++){
-        	if(Inicio.indiceGeneralAyuda.containsKey(docs[z])){
-        		System.out.println("Clave encontrada");
-        		for(int i=0;i<Inicio.indiceGeneralAyuda.get(docs[z]).indices.size();i++){
-        			conjunto.add(Integer.valueOf(Inicio.indiceGeneralAyuda.get(docs[z]).indices.get(i)));
-        		}
+    	
+    	if(!mostrarListaSecuencial){
+    		
+        	for(int z=0;z < 2;z++){
+            	if(Inicio.indiceGeneralAyuda.containsKey(docs[z])){
+            		System.out.println("Clave encontrada");
+            		for(int i=0;i<Inicio.indiceGeneralAyuda.get(docs[z]).indices.size();i++){
+            			conjunto.add(Integer.valueOf(Inicio.indiceGeneralAyuda.get(docs[z]).indices.get(i)));
+            		}
+            	}
         	}
+        	
     	}
+    	else{
+    		
+    		int tamaño = Inicio.leerExcel.getTablaHermesAyuda().length;
+    		
+    		System.out.println(tamaño);
+    		
+    		for(int i=1;i<=tamaño;i++){
+    			conjunto.add(i);
+    		}
+    	}
+
+    	
+
     	
     	if(conjunto.size() == 0){
     		JOptionPane.showMessageDialog(this, "Documento y/o clave no encontrada" );
@@ -329,6 +367,8 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
     		
     		Inicio.ayuda1.actualizaCampos(indice);
     		
+    		Inicio.editando = true;
+    		
         	dispose();
     	}
     	
@@ -379,6 +419,9 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCambiarNombre;
     private javax.swing.JButton botonSeleccionar;
+    private javax.swing.JMenuBar barraMenu; 
+    private javax.swing.JMenu jMenu1; 
+    private javax.swing.JMenuItem jMenuItem1; 
     private javax.swing.JComboBox comboMetadatos;
     private javax.swing.JComboBox comboNombresExistentes;
     private javax.swing.JComboBox comboNombresNormalizados;

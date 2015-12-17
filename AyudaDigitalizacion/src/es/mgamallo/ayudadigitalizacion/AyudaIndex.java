@@ -81,7 +81,7 @@ public class AyudaIndex {
 				JOptionPane.showMessageDialog(null, "Error en la indexacción.");
 			}
 		}
-		else{
+		else{  
 			Iterator<String> it = indiceGeneral.keySet().iterator();
 			Inicio.comboModelMetadatos.addElement("");
 			while(it.hasNext()){

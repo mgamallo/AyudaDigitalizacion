@@ -147,7 +147,7 @@ public class EscribeExcel {
             exito = true;
 	
 		}catch(Exception ioe){
-			// ioe.printStackTrace();
+			ioe.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Fichero en uso. No se puede guardar el modelo");
 			return false;
 		}

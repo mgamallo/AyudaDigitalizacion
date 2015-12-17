@@ -185,6 +185,8 @@ public class VentanaSetUp extends javax.swing.JFrame {
         campoDocumento2 = new javax.swing.JTextField();
         campoServicio = new javax.swing.JTextField();
         
+        setTitle("Hermes");
+        
         labelDocYservicio.setText("Identifica Documento y Servicio");
         labelDocumento1.setText("Identifica Documento 1");
 
@@ -204,7 +206,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         
         labelUrgencias.setText("¿Pdf de documentación o de urgencias?");
         
-        comboUrgencias.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Documentación", "Urgencias" }));
+        comboUrgencias.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Documentación", "Urgencias","Ambas" }));
         comboUrgencias.setSelectedIndex(0);
         
         labelIdentificaNHC.setText("Identifica NHC");
@@ -295,6 +297,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+
         jMenu3 = new JMenu();
         jMenu4 = new JMenu();
         
@@ -710,9 +713,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
 				new VentanaDialogoRevisar();
 			}
 		});
-        
-        
-        
+                
         jMenuItem3.setText("Indexar tabla de ayuda");
         jMenu3.add(jMenuItem3);
         
