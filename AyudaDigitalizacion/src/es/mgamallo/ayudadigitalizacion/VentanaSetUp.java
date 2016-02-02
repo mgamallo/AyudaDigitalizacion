@@ -15,12 +15,14 @@ import java.io.File;
 import java.net.ProxySelector;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,34 +54,28 @@ public class VentanaSetUp extends javax.swing.JFrame {
      */
 	
 	Modelo modeloActual = new Modelo();
-	
-	
-	Dimension dimPanel1 = new Dimension(1300,1150);
-	Dimension dimPanel2 = new Dimension(400,1150);
-	
+
+	Dimension dimPanel1 = new Dimension(1300, 1150);
+	Dimension dimPanel2 = new Dimension(400, 1150);
+
 	CargaListaPdfs pdfs;
-	
+
 	private int indexBorrar = -1;
 	private PopupMenu menuPop = new PopupMenu();
 	private MenuItem itemBorrar = new MenuItem("Borrar registro");
-	
+
 	public String proximoIndice = "";
 	public int filaDondeEscribir;
 
-	private boolean imagenExtraida = false;
-	
+	public boolean imagenExtraida = false;
+
 	private JButton botonAnterior;
-
 	private JButton botonRegistrar;
-
 	private JLabel labelDocumento1;
-
 	private JLabel labelDocumento2;
-
 	private JLabel labelServicio;
 
 	private JSeparator jSeparator1;
-
 	private JLabel labelOrientacion;
 
 	private JComboBox comboOrientacion;
@@ -87,10 +83,10 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	private JLabel labelFormato;
 
 	private JComboBox comboFormato;
-	
+
 	private JLabel labelUrgencias;
 
-	private JComboBox comboUrgencias;
+	private JComboBox comboUrgDocSal;
 
 	private JLabel labelIdentificaNHC;
 
@@ -113,10 +109,25 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	private JTextField campoDocumento2;
 
 	private JTextField campoServicio;
-	
+
 	private String rutasPdfs[];
-	
+
 	private int indiceArchivoSelecc = 0;
+
+	private JSeparator jSeparator2;
+
+	private JLabel labelBis;
+	private JComboBox comboBis;
+	
+	private JSeparator jSeparator3;
+	private JLabel labelCentro;
+	private JComboBox comboCentro;
+	private JLabel labelIdentificaCentro1;
+	private JLabel labelIdentificaCentro2;
+	private JLabel labelIdentificaCentro3;
+	private JTextField campoCentro1;
+	private JTextField campoCentro2;
+	private JTextField campoCentro3;
 	
     public VentanaSetUp(String proximoIndice, int filaDondeEscribir) {
     	this.proximoIndice = proximoIndice;
@@ -170,7 +181,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         labelFormato = new javax.swing.JLabel();
         comboFormato = new javax.swing.JComboBox();
         labelUrgencias = new javax.swing.JLabel();
-        comboUrgencias = new javax.swing.JComboBox();
+        comboUrgDocSal = new javax.swing.JComboBox();
         labelIdentificaNHC = new javax.swing.JLabel();
         labelIdentificaCIP = new javax.swing.JLabel();
         labelIdentificaNSS = new javax.swing.JLabel();
@@ -184,6 +195,27 @@ public class VentanaSetUp extends javax.swing.JFrame {
         campoDocumento1 = new javax.swing.JTextField();
         campoDocumento2 = new javax.swing.JTextField();
         campoServicio = new javax.swing.JTextField();
+        
+        
+        jSeparator2 = new javax.swing.JSeparator();
+        
+        labelBis = new JLabel();
+        comboBis = new JComboBox();
+        
+        jSeparator3 = new javax.swing.JSeparator();
+        
+        labelCentro = new JLabel();
+        comboCentro = new JComboBox();
+        labelIdentificaCentro1 = new JLabel();
+        labelIdentificaCentro2 = new JLabel();
+        labelIdentificaCentro3 = new JLabel();
+        
+        campoCentro1 = new JTextField();
+        campoCentro2 = new JTextField();
+        campoCentro3 = new JTextField();
+        
+        
+        
         
         setTitle("Hermes");
         
@@ -206,8 +238,13 @@ public class VentanaSetUp extends javax.swing.JFrame {
         
         labelUrgencias.setText("¿Pdf de documentación o de urgencias?");
         
-        comboUrgencias.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Documentación", "Urgencias","Ambas" }));
-        comboUrgencias.setSelectedIndex(0);
+        comboUrgDocSal.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Documentación", "Urgencias","Ambas","Salnés" }));
+        if(Inicio.centroDeLaDocumentacion == 1){
+        	comboUrgDocSal.setSelectedIndex(3);
+        }
+        else{
+        	comboUrgDocSal.setSelectedIndex(0);
+        }
         
         labelIdentificaNHC.setText("Identifica NHC");
         labelIdentificaCIP.setText("Identifica CIP");
@@ -552,6 +589,18 @@ public class VentanaSetUp extends javax.swing.JFrame {
         
         ///////////////////////   Panel ocr
         
+        labelBis.setText("Documento Bis");
+        comboBis.setModel(new DefaultComboBoxModel(new String[]{"NO","SI"}));
+        
+        labelCentro.setText("Centro externo");
+        comboCentro.setModel(new DefaultComboBoxModel(new String[] 
+        		{"","Dominguez","Echevarne","Madrid","Otros","Povisa","Salnes" }));
+        
+        labelIdentificaCentro1.setText("Identificador de centro 1");
+        labelIdentificaCentro2.setText("Identificador de centro 2");
+        labelIdentificaCentro3.setText("Identificador de centro 3");
+        
+        
         panelSetupOCR.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro OCR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
         
         javax.swing.GroupLayout panelSetupOCRLayout = new javax.swing.GroupLayout(panelSetupOCR);
@@ -576,6 +625,11 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	                        .addComponent(labelIdentificaNHC)
 	                        .addComponent(labelIdentificaCIP)
 	                        .addComponent(labelIdentificaNSS)
+	                        .addComponent(labelBis)
+	                        .addComponent(labelCentro)	   
+	                        .addComponent(labelIdentificaCentro1)
+	                        .addComponent(labelIdentificaCentro2)
+	                        .addComponent(labelIdentificaCentro3)
 	                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSetupOCRLayout.createSequentialGroup()
                         .addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -585,16 +639,23 @@ public class VentanaSetUp extends javax.swing.JFrame {
                             .addComponent(campoIdentificaNSS, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboFormato, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(comboOrientacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboUrgencias, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboUrgDocSal, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campoServicio, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDocumento2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDocumento1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoCentro1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoCentro2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoCentro3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDocYservicio)
+                            .addComponent(comboBis, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboCentro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(comboNombresNormalizadoOcr, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSetupOCRLayout.createSequentialGroup()
                                 .addComponent(labelNombreNormalizado)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSetupOCRLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(botonAnterior)))
@@ -636,22 +697,46 @@ public class VentanaSetUp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelUrgencias)
                 .addGap(1, 1, 1)
-                .addComponent(comboUrgencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addComponent(comboUrgDocSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
                 .addGap(18, 18, 18)
                 .addComponent(labelIdentificaNHC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoIdentificaNHC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                .addComponent(labelIdentificaCIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
                 .addComponent(campoIdentificaCIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
                 .addComponent(labelIdentificaNSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
-                .addGap(18, 18, 18)                
+                .addGap(9, 9, 9)             
                 .addComponent(campoIdentificaNSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(labelBis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(1, 1, 1)
+                .addComponent(comboBis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
                 .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)  
+                .addComponent(labelCentro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboCentro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(9, 9, 9)
+                .addComponent(labelIdentificaCentro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(1, 1, 1)
+                .addComponent(campoCentro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)               
+                .addComponent(labelIdentificaCentro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(1, 1, 1)
+                .addComponent(campoCentro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)   
+                .addComponent(labelIdentificaCentro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)                
+                .addGap(1, 1, 1)
+                .addComponent(campoCentro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)  
+                .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)  
                 .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -808,6 +893,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
 	    	modeloActual.pdf.observaciones = areaTextoObservaciones.getText();
 	    	modeloActual.pdf.fisica.apariencia = comboApariencia.getSelectedItem().toString();
 	    	modeloActual.pdf.fisica.color = comboColor.getSelectedItem().toString();
+	    	
 	    	
 	    	System.out.println(modeloActual.nombreNormalizado);
 	    	for(int i=0;i<modeloActual.pdf.servicios.size();i++){
@@ -980,11 +1066,21 @@ public class VentanaSetUp extends javax.swing.JFrame {
     	modeloActual.ocr.identificaNSS = campoIdentificaNSS.getText();
     	
     	modeloActual.pdf.observaciones = areaTextoObservaciones.getText();
+
+    	modeloActual.ocr.bis = comboBis.getSelectedItem().toString();
+
+    	
+    	modeloActual.ocr.centro = comboCentro.getSelectedItem().toString();
+    	modeloActual.ocr.identificadorCentro[0] = campoCentro1.getText();
+    	modeloActual.ocr.identificadorCentro[1] = campoCentro2.getText();
+    	modeloActual.ocr.identificadorCentro[2] = campoCentro3.getText();
+    	
+    	
     	
     	if(!borrar){
         	modeloActual.pdf.fisica.orientacion = comboOrientacion.getSelectedItem().toString(); 
         	modeloActual.pdf.fisica.formato = comboFormato.getSelectedItem().toString();
-        	modeloActual.ocr.urgOdocumentacion = comboUrgencias.getSelectedItem().toString();
+        	modeloActual.ocr.urgOdocumentacion = comboUrgDocSal.getSelectedItem().toString();
     	}
     	else{
           	modeloActual.pdf.fisica.orientacion = ""; 
@@ -1130,11 +1226,14 @@ public class VentanaSetUp extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAnteriorActionPerformed
     
     
-    private void reseteaCampos(){
+    public void reseteaCampos(){
+    	
+    	botonAnteriorActionPerformed(null);
+    	
     	
     	comboOrientacion.setSelectedIndex(0);
     	comboFormato.setSelectedIndex(0);
-    	comboUrgencias.setSelectedIndex(0);
+    	comboUrgDocSal.setSelectedIndex(0);
     	comboApariencia.setSelectedIndex(0);
     	comboColor.setSelectedIndex(0);
     	comboNombresNormalizadoPdf.setSelectedIndex(0);
@@ -1155,6 +1254,12 @@ public class VentanaSetUp extends javax.swing.JFrame {
     	campoMetadato3.setText("");
     	campoMetadato4.setText("");
     	campoMetadato5.setText("");
+    	
+    	comboBis.setSelectedIndex(0);
+    	comboCentro.setSelectedIndex(0);
+    	campoCentro1.setText("");
+    	campoCentro2.setText("");
+    	campoCentro3.setText("");
     	
     	listaServicios.clearSelection();
     	    	
@@ -1213,12 +1318,17 @@ public class VentanaSetUp extends javax.swing.JFrame {
     	comboOrientacion.addItem("");
     	comboFormato.removeAllItems();
     	comboFormato.addItem("");
-    	comboUrgencias.removeAllItems();
-    	comboUrgencias.addItem("");
+    	comboUrgDocSal.removeAllItems();
+    	comboUrgDocSal.addItem("");
     	comboApariencia.removeAllItems();
     	comboApariencia.addItem("");
     	comboColor.removeAllItems();
     	comboColor.addItem("");
+    	
+    	comboBis.removeAllItems();
+    	comboBis.addItem("");
+    	comboCentro.removeAllItems();
+    	comboCentro.addItem("");
     	
     	listaServicios.removeAll();
     	
@@ -1266,7 +1376,7 @@ public class VentanaSetUp extends javax.swing.JFrame {
         
         comboOrientacion.setSelectedItem(ocr[indice-1][3].toString());
         comboFormato.setSelectedItem(ocr[indice-1][4].toString());
-        comboUrgencias.setSelectedItem(ocr[indice-1][5].toString());
+        comboUrgDocSal.setSelectedItem(ocr[indice-1][5].toString());
         
         
     	campoIdentificaNHC.setText(ocr[indice-1][10].toString());
@@ -1275,6 +1385,12 @@ public class VentanaSetUp extends javax.swing.JFrame {
 
     	campoIdentificaCIP.setText(ocr[indice-1][12].toString());
 
+    	comboBis.setSelectedItem(ocr[indice-1][13].toString());
+    	comboCentro.setSelectedItem(ocr[indice-1][14].toString());
+    	campoCentro1.setText(ocr[indice-1][15].toString());
+    	campoCentro2.setText(ocr[indice-1][16].toString());
+    	campoCentro3.setText(ocr[indice-1][17].toString());
+    	
         
       //  listaServicios.setSelected;
     }

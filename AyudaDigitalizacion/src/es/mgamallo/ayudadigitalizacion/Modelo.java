@@ -11,6 +11,7 @@ public class Modelo {
 	
 	ModeloPdf pdf = new ModeloPdf();
 	ModeloOcr ocr = new ModeloOcr();
+
 }
 
 class ModeloPdf{
@@ -30,6 +31,11 @@ class ModeloOcr{
 	String identificaCIP = "@";
 	String identificaNSS = "@";
 	String urgOdocumentacion = "Documentación";
+	
+	String bis = "NO";
+	
+	String centro = "";
+	String identificadorCentro[] = new String[3]; 
 }
 
 class Fisica{

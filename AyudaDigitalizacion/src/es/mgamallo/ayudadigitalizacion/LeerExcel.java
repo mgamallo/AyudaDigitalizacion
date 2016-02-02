@@ -250,7 +250,7 @@ public class LeerExcel {
 	        hoja = archivoExcel.getSheet(1);
 	        
 	        //	Obtiene los nombres
-	        numColumnas = 13;
+	        numColumnas = 18;
 	        
 	        // La última fila será donde escribamos el nuevo registro
 	        ultimaFila = numFilas;

@@ -319,7 +319,7 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
      		
     		DefaultListModel listaModeloJpgs = new DefaultListModel();
     		
-    		String rutasJpgs[] = new String[conjunto.size()];
+    		Inicio.rutasJpgs = new String[conjunto.size()];
     		
     	    Iterator<Integer> it = conjunto.iterator();
     	    int z=0;
@@ -345,7 +345,7 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
     			String ruta = Inicio.rutaHermes + "\\Index_" + proximoIndice + ".jpg";
     			
     			listaModeloJpgs.addElement(proximoIndice);
-    			rutasJpgs[z] = ruta;
+    			Inicio.rutasJpgs[z] = ruta;
     			z++;
     		}
     		
@@ -357,13 +357,13 @@ public class VentanaDialogoRevisar extends javax.swing.JDialog {
     		int indice = Integer.valueOf(Inicio.listaPdfs.getSelectedValue().toString());
     		
     		
-    		String html = "<html> <body> <img src='" + rutasJpgs[0] 
+    		String html = "<html> <body> <img src='" + Inicio.rutasJpgs[0] 
     				+ "' width='750px'> </body> </html>";
  			
     		
     		Inicio.webBrowser.setVisible(true);
     		Inicio.webBrowser.setHTMLContent(html);
-    		System.out.println(rutasJpgs[0]);
+    		System.out.println(Inicio.rutasJpgs[0]);
     		
     		Inicio.ayuda1.actualizaCampos(indice);
     		

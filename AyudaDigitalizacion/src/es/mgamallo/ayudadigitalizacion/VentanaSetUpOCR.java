@@ -2,12 +2,27 @@ package es.mgamallo.ayudadigitalizacion;
 
 import java.awt.Color;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
 
 
 public class VentanaSetUpOCR extends javax.swing.JFrame {
 
-    /**
+    private JLabel labelBis;
+	private JComboBox comboBis;
+	private JLabel labelCentro;
+	private JComboBox comboCentro;
+	private JLabel labelIdentificaCentro1;
+	private JLabel labelIdentificaCentro2;
+	private JLabel labelIdentificaCentro3;
+	private JTextField campoCentro1;
+	private JTextField campoCentro2;
+	private JTextField campoCentro3;
+	private JSeparator jSeparator2;
+	private JSeparator jSeparator3;
+	/**
      * Creates new form VentanaSetUp
      */
     public VentanaSetUpOCR() {
@@ -51,6 +66,24 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
         campoIdentificaNHC = new javax.swing.JTextField();
         campoIdentificaCIP = new javax.swing.JTextField();
         campoIdentificaNSS = new javax.swing.JTextField();
+        
+        jSeparator2 = new javax.swing.JSeparator();
+        
+        labelBis = new JLabel();
+        comboBis = new JComboBox();
+        
+        jSeparator3 = new javax.swing.JSeparator();
+        
+        labelCentro = new JLabel();
+        comboCentro = new JComboBox();
+        labelIdentificaCentro1 = new JLabel();
+        labelIdentificaCentro2 = new JLabel();
+        labelIdentificaCentro3 = new JLabel();
+        
+        campoCentro1 = new JTextField();
+        campoCentro2 = new JTextField();
+        campoCentro3 = new JTextField();
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +149,9 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
         labelIdentificaNHC.setText("Identifica NHC");
         labelIdentificaCIP.setText("Identifica CIP");
         labelIdentificaNSS.setText("Identifica NSS");
+        
+        
+        labelBis.setText("Documento Bis");
 
         javax.swing.GroupLayout panelSetupOCRLayout = new javax.swing.GroupLayout(panelSetupOCR);
         panelSetupOCR.setLayout(panelSetupOCRLayout);
@@ -138,6 +174,7 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
 	                        .addComponent(labelIdentificaNHC)
 	                        .addComponent(labelIdentificaCIP)
 	                        .addComponent(labelIdentificaNSS)
+	                        .addComponent(labelBis)
 	                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSetupOCRLayout.createSequentialGroup()
                         .addGroup(panelSetupOCRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -156,6 +193,7 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
                                 .addComponent(labelNombreNormalizado)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSetupOCRLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(botonAnterior)))
@@ -210,6 +248,10 @@ public class VentanaSetUpOCR extends javax.swing.JFrame {
                 .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelBis)
                 .addContainerGap())
         );
 

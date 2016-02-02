@@ -71,7 +71,7 @@ public class LeerExcelHermes {
 	        
 	        hoja = archivoExcel.getSheet(1);
 	        numFilas = 0;
-	        numColumnas = 13;
+	        numColumnas = 18;
 	        
 	        while(!hoja.getCell(0,numFilas).getContents().toString().equals("ultimo")){
 	        	numFilas++;
@@ -88,14 +88,14 @@ public class LeerExcelHermes {
 	        	}
 	        }
 	        
-	        /*
+	        
 	        for(int fila=0;fila<numFilas;fila++){
 	        	for(int columna=0;columna<numColumnas;columna++){
 	        		System.out.print(tablaHermes2[fila][columna] + " ");
 	        	}
 	        	System.out.println();
 	        }
-	        */
+	        
 	        
 		} catch (BiffException e) {
 			// TODO Auto-generated catch block

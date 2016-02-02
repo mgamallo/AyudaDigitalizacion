@@ -128,6 +128,17 @@ public class EscribeExcel {
             texto = new jxl.write.Label(12,fila,modelo.ocr.identificaNSS);
             hojaE.addCell(texto); 
             
+            texto = new jxl.write.Label(13,fila,modelo.ocr.bis);
+            hojaE.addCell(texto);  
+            texto = new jxl.write.Label(14,fila,modelo.ocr.centro);
+            hojaE.addCell(texto);                 
+            texto = new jxl.write.Label(15,fila,modelo.ocr.identificadorCentro[0]);
+            hojaE.addCell(texto); 
+            texto = new jxl.write.Label(16,fila,modelo.ocr.identificadorCentro[1]);
+            hojaE.addCell(texto);             
+            texto = new jxl.write.Label(17,fila,modelo.ocr.identificadorCentro[2]);
+            hojaE.addCell(texto); 
+            
             if(!editando){
                 texto = new jxl.write.Label(0,fila+1,"ultimo");
                 hojaE.addCell(texto);

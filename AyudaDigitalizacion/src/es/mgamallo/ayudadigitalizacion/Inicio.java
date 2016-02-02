@@ -40,6 +40,8 @@ public class Inicio {
 	static public String rutaFirmados = ":\\digitalización\\00 documentacion\\03 Firmado";
 	static public String unidadHDDvirtual = "";
 	
+	static public int centroDeLaDocumentacion = 0;  // 0 Montecelo, 1 Salnes
+	
 	static LeerExcel leerExcel;
 	
 	static DefaultListModel listaModelNombresComunes = new DefaultListModel();
@@ -57,6 +59,7 @@ public class Inicio {
 	
 	static public javax.swing.JList listaPdfs;
     static public JWebBrowser webBrowser;
+    static public String rutasJpgs[];
     
     static public boolean editando = false;
 	
@@ -66,6 +69,8 @@ public class Inicio {
 	String[] listaServicios;
 	String[] listaNombresDocumentos;
 	String[][] tablaHabituales;
+	
+	
 	
 	static public String proximoIndice = "";
 	static public int filaDondeEscribir = 1;
@@ -83,7 +88,11 @@ public class Inicio {
 		    	unidadHDDvirtual = detectaUnidadHDD();  
 		    	rutaHermes_TXT = unidadHDDvirtual + rutaHermes_TXT;
 		    	rutaHermes = unidadHDDvirtual + rutaHermes;
-		    	  
+		    	
+		    	centroDeLaDocumentacion = JOptionPane.showOptionDialog(null, "¿CHOP o Salnés?", "Selector de centro", 
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, new Object[] {"CHOP","Salnés"}, "CHOP");
+		    	
+		    	
 		    	leerArchivos();
 		    	
 		    	/*
@@ -100,6 +109,7 @@ public class Inicio {
 		    	
 		    	setDefaultsModels();
 	    	
+		    	CapturaRatonYTeclado capt = new CapturaRatonYTeclado();
 		    	
 		    	ayuda1 = new VentanaSetUp(proximoIndice, filaDondeEscribir);  
 		    	// ayuda1.setPdf();
